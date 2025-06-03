@@ -1,0 +1,50 @@
+import { useEffect, useState } from "react";
+import "./App.css";
+
+function App() {
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberme, setRememberMe] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log({
+      login: login,
+      password: password,
+      rememberme: rememberme,
+    });
+  };
+
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <label>Login: </label>
+        <input
+          type="login"
+          placeholder="username"
+          value={login}
+          onChange={(e) => setLogin(e.target.value)}
+        />
+        <br />
+        <label>Password: </label>
+        <input
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <br />
+        <label>Remember me? </label>
+        <input
+          type="checkbox"
+          name="rememberme"
+          checked={rememberme}
+          onChange={(e) => setRememberMe(e.target.checked)}
+        />
+        <br />
+        <button>Submit </button>
+      </form>
+    </>
+  );
+}
+export default App;
