@@ -5,9 +5,19 @@ function App() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [rememberme, setRememberMe] = useState(false);
+  const [passwordError, setPasswordError] = useState<string>("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    setPasswordError("");
+
+    // проверка на цифры
+    if (password.length > 0 && !/\d/.test(password)) {
+      setPasswordError("the password must contain at least one digit");
+      return;
+    }
+
     console.log({
       login: login,
       password: password,
@@ -33,6 +43,12 @@ function App() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <br />
+        {/* примеры тернарных операторов выучи */}
+        {passwordError == "" ? `нет ошибки` : passwordError}
+        {passwordError !== "" && passwordError}
+        <br />
+
         <br />
         <label> Remember me? </label>
         <input
