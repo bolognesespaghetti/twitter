@@ -27,7 +27,7 @@ function App() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={handleSubmit}>
         <label>Login: </label>
         <input
           type="login"
