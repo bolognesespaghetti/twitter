@@ -1,64 +1,16 @@
-import { useState } from "react";
 import "./App.css";
+import Tweet from "./components/tweet";
 
 function App() {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberme, setRememberMe] = useState(false);
-  const [passwordError, setPasswordError] = useState<string>("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    setPasswordError("");
-
-    // проверка на цифры
-    if (password.length > 0 && !/\d/.test(password)) {
-      setPasswordError("the password must contain at least one digit");
-      return;
-    }
-
-    console.log({
-      login: login,
-      password: password,
-      rememberme: rememberme,
-    });
-  };
-
   return (
     <>
-      <form className="login-form" onSubmit={handleSubmit}>
-        <label>Login: </label>
-        <input
-          type="login"
-          placeholder="login"
-          value={login}
-          onChange={(e) => setLogin(e.target.value)}
-        />
-        <br />
-        <label>Password: </label>
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        {/* примеры тернарных операторов выучи */}
-        {passwordError == "" ? `нет ошибки` : passwordError}
-        {passwordError !== "" && passwordError}
-        <br />
-
-        <br />
-        <label> Remember me? </label>
-        <input
-          type="checkbox"
-          checked={rememberme}
-          onChange={(e) => setRememberMe(e.target.checked)}
-        />
-        <br />
-        <button>Submit</button>
-      </form>
+      <Tweet
+        author="Иван Иванов"
+        text="это текст очень длинного поста, чтобы было понятно, как оно переносится на другие линии, и переносится ли вообще? еще я люблю есть вареники с вишней со сметаной, мой босс в больнице и надеюсь он быстро выздоровеет, все будет хорошо сереж!"
+        date=""
+        likes={1}
+        color="blue"
+      />
     </>
   );
 }

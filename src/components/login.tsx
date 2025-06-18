@@ -1,13 +1,23 @@
-import { useEffect, useState } from "react";
-import "./App.css";
+import { useState } from "react";
+import "../App.css";
 
-function App() {
+function LoginForm() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [rememberme, setRememberMe] = useState(false);
+  const [passwordError, setPasswordError] = useState<string>("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    setPasswordError("");
+
+    // проверка на цифры
+    if (password.length > 0 && !/\d/.test(password)) {
+      setPasswordError("the password must contain at least one digit");
+      return;
+    }
+
     console.log({
       login: login,
       password: password,
@@ -17,11 +27,11 @@ function App() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={handleSubmit}>
         <label>Login: </label>
         <input
           type="login"
-          placeholder="username"
+          placeholder="login"
           value={login}
           onChange={(e) => setLogin(e.target.value)}
         />
@@ -34,17 +44,22 @@ function App() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
-        <label>Remember me? </label>
+        {/* примеры тернарных операторов выучи */}
+        {passwordError == "" ? `нет ошибки` : passwordError}
+        {passwordError !== "" && passwordError}
+        <br />
+
+        <br />
+        <label> Remember me? </label>
         <input
           type="checkbox"
-          name="rememberme"
           checked={rememberme}
           onChange={(e) => setRememberMe(e.target.checked)}
         />
         <br />
-        <button>Submit </button>
+        <button>Submit</button>
       </form>
     </>
   );
 }
-export default App;
+export default LoginForm;
