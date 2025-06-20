@@ -2,7 +2,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  text-align: start;
 }
 
 .logo {
@@ -39,4 +39,88 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.tweet {
+  width: 500px;
+  display: flex;
+  align-items: flex-start;
+  padding: 16px;
+  gap: 12px;
+  font-size: 14px;
+  overflow: show;
+  border-bottom: 1px solid #0000000a
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-top: 12px;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.context {
+  display: flex;
+  flex-direction: column;
+}
+
+.text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.date {
+  font-size: 10px;
+  color: gray;
+  display: flex;
+  justify-content: flex-end;
+  font-weight: lighter;
+  padding-top: 2px;
+}
+
+.likeWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.likeButton {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.likeCount {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  padding-left: 12px;
+  padding-top: 12px;
+  gap: 4px;
+}
+
+.author {
+  display: flex;
+  align-items: stretch;
+}
+
+.tweetHeader {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  font-weight: bold;
 }
