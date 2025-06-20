@@ -25,8 +25,11 @@ function Tweet({ author, text, date, likes, color }: TweetProps) {
           {initial}
         </div>
         <div className="context">
+          <div className="tweetHeader">
+            <div className="author">{author}</div>
+            <p className="date">{date}</p>
+          </div>
           <p className="text">{text}</p>
-          <p className="date">{date}</p>
           <div className="likeWrapper">
             <button
               className="likeButton"
@@ -34,7 +37,7 @@ function Tweet({ author, text, date, likes, color }: TweetProps) {
             >
               🤍
             </button>
-            <div className="likeCount">{likeCount}</div>
+            <div className="likeCount">{likeCount} likes</div>
           </div>
         </div>
       </div>
