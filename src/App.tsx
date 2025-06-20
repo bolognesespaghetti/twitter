@@ -1,16 +1,19 @@
 import "./App.css";
 import Tweet from "./components/tweet";
+import { bulkTweet } from "./data/tweets";
 
 function App() {
   return (
     <>
-      <Tweet
-        author="Иван Иванов"
-        text="это текст очень длинного поста, чтобы было понятно, как оно переносится на другие линии, и переносится ли вообще? еще я люблю есть вареники с вишней со сметаной, мой босс в больнице и надеюсь он быстро выздоровеет, все будет хорошо сереж!"
-        date=""
-        likes={1}
-        color="blue"
-      />
+      {bulkTweet.map((tweet) => (
+        <Tweet
+          author={tweet.author}
+          text={tweet.text}
+          date={tweet.date}
+          likes={tweet.likes}
+          color={tweet.color}
+        />
+      ))}
     </>
   );
 }
