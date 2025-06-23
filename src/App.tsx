@@ -12,9 +12,10 @@ function App() {
   const [tweetText, setTweetText] = useState("");
   const [selectedColor, setSelectedColor] = useState("blue");
 
-  function onLogin(username) {
+  function onLogin(username, color) {
     setShowingLoginOverlay(false);
     setLogin(username);
+    setSelectedColor(color);
   }
 
   function addTweet(text) {
@@ -32,7 +33,7 @@ function App() {
 
   return (
     <>
-      {isShowingLoginOverlay && <LoginFrom closeOverlay={onLogin} />}
+      {isShowingLoginOverlay && <LoginFrom onLogin={onLogin} />}
       <div className="tweetPostFormWrapper">
         <form
           className="tweetPostForm"
@@ -51,15 +52,6 @@ function App() {
             onChange={(e) => setTweetText(e.target.value)}
             placeholder="че происходит?"
           />
-          <label className="setColourLable">select a colour: </label>
-          <select
-            value={selectedColor}
-            onChange={(e) => setSelectedColor(e.target.value)}
-          >
-            <option value="Gold">Gold</option>
-            <option value="DarkOrange">DarkOrange</option>
-            <option value="Purple">Purple</option>
-          </select>
           <button className="tweetPostFormButton">post</button>
         </form>
       </div>

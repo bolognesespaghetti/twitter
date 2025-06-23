@@ -1,9 +1,10 @@
 import "../App.css";
 import { useState } from "react";
 
-function LoginForm({ closeOverlay }) {
+function LoginForm({ onLogin }) {
   const [login, setLogin] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [selectedColor, setSelectedColor] = useState("blue");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,7 +13,7 @@ function LoginForm({ closeOverlay }) {
       return;
     }
     setLogin("");
-    closeOverlay(login);
+    onLogin(login, selectedColor);
   };
 
   return (
@@ -28,6 +29,15 @@ function LoginForm({ closeOverlay }) {
             onChange={(e) => setLogin(e.target.value)}
           ></input>
           {loginError !== "" && loginError}
+          <label className="setColourLable">select a colour: </label>
+          <select
+            value={selectedColor}
+            onChange={(e) => setSelectedColor(e.target.value)}
+          >
+            <option value="Gold">Gold</option>
+            <option value="DarkOrange">DarkOrange</option>
+            <option value="Purple">Purple</option>
+          </select>
           <button className="loginSubmit">Submit</button>
         </form>
       </div>
