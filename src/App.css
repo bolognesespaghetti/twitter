@@ -1,44 +1,5 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: start;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  width: 100%;
 }
 
 .tweet {
@@ -51,6 +12,34 @@
   overflow: show;
   border-bottom: 1px solid #0000000a
 }
+
+.tweetsPageContainer {
+display: flex;
+width: 100%;
+flex-direction: column;
+align-items: center;
+margin: 24px;
+}
+
+.tweetsPageContent{
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+}
+
+.tweetsContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+
 
 .avatar {
   width: 40px;
@@ -125,46 +114,3 @@
   font-weight: bold;
 }
 
-.loginOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.loginForm {
-  background: white;
-  border-radius: 1rem;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-}
-
-.order-box {
-  display: flex;
-  flex-direction: column-reverse;
-}
-
-.tweetPostForm {
-  display: flex;
-  flex-direction: column;
-  gap:8px;
-}
-.setColourLable {
-  font-size: 16px;
-}
-
-.tweetPostFormArea{
-  display: flex;
-  width: 600px;
-  height: 2rem;
-  flex-wrap: wrap;
-}
