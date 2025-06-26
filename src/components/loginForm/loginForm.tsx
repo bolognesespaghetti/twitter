@@ -1,10 +1,10 @@
-import "../App.css";
+import "./loginForm.css";
 import { useState } from "react";
 
 function LoginForm({ onLogin }) {
   const [login, setLogin] = useState("");
   const [loginError, setLoginError] = useState("");
-  const [selectedColor, setSelectedColor] = useState("blue");
+  const [selectedColor, setSelectedColor] = useState("Gold");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,8 +12,13 @@ function LoginForm({ onLogin }) {
       setLoginError("Login must contain 2 words");
       return;
     }
-    setLogin("");
+
+    localStorage.setItem(
+      "loginData",
+      JSON.stringify({ login: login, color: selectedColor })
+    );
     onLogin(login, selectedColor);
+    setLogin("");
   };
 
   return (
@@ -31,6 +36,7 @@ function LoginForm({ onLogin }) {
           {loginError !== "" && loginError}
           <label className="setColourLable">select a colour: </label>
           <select
+            defaultValue={"Gold"}
             value={selectedColor}
             onChange={(e) => setSelectedColor(e.target.value)}
           >

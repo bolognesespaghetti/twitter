@@ -1,24 +1,37 @@
 import "./App.css";
-import Tweet from "./components/tweet";
+import Tweet from "./components/tweets/tweet";
 import { bulkTweet } from "./data/tweets";
-import LoginFrom from "./components/loginForm";
-import { useState } from "react";
+import LoginFrom from "./components/loginForm/loginForm";
+import { useState, useEffect } from "react";
 
 function App() {
   const [login, setLogin] = useState("");
-  const [isShowingLoginOverlay, setShowingLoginOverlay] =
-    useState<boolean>(true);
   const [tweets, setTweets] = useState(bulkTweet);
   const [tweetText, setTweetText] = useState("");
   const [selectedColor, setSelectedColor] = useState("blue");
+  const [isShowingLoginOverlay, setShowingLoginOverlay] =
+    useState<boolean>(true);
 
-  function onLogin(username, color) {
+  function onLogin(username: string, color: string) {
     setShowingLoginOverlay(false);
     setLogin(username);
     setSelectedColor(color);
   }
 
-  function addTweet(text) {
+  useEffect(() => {
+    const loginData = JSON.parse(localStorage.getItem("loginData"));
+    if (loginData && loginData.login && loginData.color) {
+      onLogin(loginData.login, loginData.color);
+    }
+  }, []);
+
+  const loginInitial = login
+    .split(" ")
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
+
+  function addTweet(text: string) {
     const newTweet = {
       id: crypto.randomUUID(),
       author: login,
@@ -65,6 +78,15 @@ function App() {
           color={tweet.color}
         />
       ))}
+      <div className="loginHeader">
+        <div
+          className="loginHeaderAvatar"
+          style={{ backgroundColor: selectedColor }}
+        >
+          {loginInitial}
+        </div>
+        <div className="loginHeaderText">{login}</div>
+      </div>
     </>
   );
 }
