@@ -47,45 +47,51 @@ function App() {
   return (
     <>
       {isShowingLoginOverlay && <LoginFrom onLogin={onLogin} />}
-      <div className="tweetPostFormWrapper">
-        <form
-          className="tweetPostForm"
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (tweetText.trim()) {
-              addTweet(tweetText);
-              setTweetText("");
-            }
-          }}
-        >
-          <input
-            className="tweetPostFormArea"
-            type="text"
-            value={tweetText}
-            onChange={(e) => setTweetText(e.target.value)}
-            placeholder="че происходит?"
-          />
-          <button className="tweetPostFormButton">post</button>
-        </form>
-      </div>
-      {tweets.map((tweet) => (
-        <Tweet
-          key={tweet.id}
-          author={tweet.author}
-          text={tweet.text}
-          date={tweet.date}
-          likes={tweet.likes}
-          color={tweet.color}
-        />
-      ))}
-      <div className="loginHeader">
-        <div
-          className="loginHeaderAvatar"
-          style={{ backgroundColor: selectedColor }}
-        >
-          {loginInitial}
+      <div className="tweetsPageContainer">
+        <div className="tweetsPageContent">
+          <div className="tweetPostFormWrapper">
+            <form
+              className="tweetPostForm"
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (tweetText.trim()) {
+                  addTweet(tweetText);
+                  setTweetText("");
+                }
+              }}
+            >
+              <input
+                className="tweetPostFormArea"
+                type="text"
+                value={tweetText}
+                onChange={(e) => setTweetText(e.target.value)}
+                placeholder="че происходит?"
+              />
+              <button className="tweetPostFormButton">post</button>
+            </form>
+          </div>
+          <div className="tweetsContainer">
+            {tweets.map((tweet) => (
+              <Tweet
+                key={tweet.id}
+                author={tweet.author}
+                text={tweet.text}
+                date={tweet.date}
+                likes={tweet.likes}
+                color={tweet.color}
+              />
+            ))}
+          </div>
+          <div className="loginHeader">
+            <div
+              className="loginHeaderAvatar"
+              style={{ backgroundColor: selectedColor }}
+            >
+              {loginInitial}
+            </div>
+            <div className="loginHeaderText">{login}</div>
+          </div>
         </div>
-        <div className="loginHeaderText">{login}</div>
       </div>
     </>
   );
