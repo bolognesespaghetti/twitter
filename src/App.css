@@ -2,26 +2,15 @@
   width: 100%;
 }
 
-.tweet {
-  width: 500px;
+.tweets-page-container {
   display: flex;
-  align-items: flex-start;
-  padding: 16px;
-  gap: 12px;
-  font-size: 14px;
-  overflow: show;
-  border-bottom: 1px solid #0000000a
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  margin: 24px;
 }
 
-.tweetsPageContainer {
-display: flex;
-width: 100%;
-flex-direction: column;
-align-items: center;
-margin: 24px;
-}
-
-.tweetsPageContent{
+.tweets-page-content{
   display: flex;
   width: 100%;
   max-width: 600px;
@@ -31,86 +20,52 @@ margin: 24px;
 
 }
 
-.tweetsContainer {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  gap: 24px;
-  align-items: flex-start;
+.tweets-post-form-wrapper{
 }
 
+.tweets-post-form{
+}
 
+.tweets-post-form__input{}
 
-.avatar {
+.tweets-post-form__button{}
+
+.tweets-feed{}
+
+.login-header{
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  z-index: 10;
+  gap: 8px;
+  color: white;
+  backdrop-filter: blur(4px);
+}
+
+.login-header__avatar{
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  margin-top: 12px;
-  color: white;
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
-.context {
+.login-header__text {
   display: flex;
-  flex-direction: column;
-}
-
-.text {
-  margin: 0;
-  font-size: 15px;
-  line-height: 20px;
-}
-
-.date {
-  font-size: 10px;
-  color: gray;
-  display: flex;
-  justify-content: flex-end;
-  font-weight: lighter;
-  padding-top: 2px;
-}
-
-.likeWrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: flex-start;
-}
-
-.likeButton {
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.likeCount {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  padding-left: 12px;
-  padding-top: 12px;
   gap: 4px;
+  margin-left: 8px;
+  align-items: flex-start;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
 }
-
-.author {
-  display: flex;
-  align-items: stretch;
-}
-
-.tweetHeader {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  align-items: center;
-  font-weight: bold;
-}
-
