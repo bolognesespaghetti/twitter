@@ -61,13 +61,13 @@ function App() {
               }}
             >
               <input
-                className="tweets-post-form_input"
+                className="tweets-post-form__input"
                 type="text"
                 value={tweetText}
                 onChange={(e) => setTweetText(e.target.value)}
                 placeholder="че происходит?"
               />
-              <button className="tweets-post-form_button">post</button>
+              <button className="tweets-post-form__button">post</button>
             </form>
           </div>
           <div className="tweets-feed">
@@ -84,12 +84,12 @@ function App() {
           </div>
           <div className="login-header">
             <div
-              className="login-header_avatar"
+              className="login-header__avatar"
               style={{ backgroundColor: selectedColor }}
             >
               {loginInitial}
             </div>
-            <div className="login-header_text">{login}</div>
+            <div className="login-header__text">{login}</div>
           </div>
         </div>
       </div>

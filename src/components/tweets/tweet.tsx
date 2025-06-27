@@ -23,27 +23,25 @@ function Tweet({ author, text, date, likes, color }: TweetProps) {
       <div className="tweets-feed-container">
         <div className="single-tweet">
           <div
-            className="single-tweet_avatar"
+            className="single-tweet__avatar"
             style={{ backgroundColor: color }}
           >
             {initial}
           </div>
-          <div className="single-tweet_context">
-            <div className="single-tweet_context_header">
-              <div className="single-tweet_context_author">{author}</div>
-              <p className="single-tweet_context_date">{date}</p>
+          <div className="single-tweet-container">
+            <div className="single-tweet-header">
+              <div className="single-tweet__author">{author}</div>
+              <p className="single-tweet__date">{date}</p>
             </div>
-            <p className="single-tweet_context_text">{text}</p>
-            <div className="single-tweet_context_like-container">
+            <p className="single-tweet__text">{text}</p>
+            <div className="single-tweet__like-container">
               <button
-                className="single-tweet_context_like_button"
+                className="single-tweet__like-button"
                 onClick={() => setLikeCount(likeCount + 1)}
               >
                 🤍
               </button>
-              <div className="single-tweet_context_like_count">
-                {likeCount} likes
-              </div>
+              <div className="single-tweet__like-count">{likeCount} likes</div>
             </div>
           </div>
         </div>

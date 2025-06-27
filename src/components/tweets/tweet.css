@@ -13,7 +13,7 @@
   border-bottom: 1px solid #0000000a
 }
 
-.single-tweet_avatar {
+.single-tweet__avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -26,14 +26,14 @@
   flex-shrink: 0;
 }
 
-.single-tweet_context {
+.single-tweet-container {
   display: flex;
   flex-direction: column;
 }
 
 
 
-.single-tweet_context_header {
+.single-tweet-header {
   display: flex;
   flex-direction: row;
   gap: 8px;
@@ -41,12 +41,12 @@
   font-weight: bold;
 }
 
-.single-tweet_context_author {
+.single-tweet__author {
   display: flex;
   align-items: stretch;
 }
 
-.single-tweet_context_date {
+.single-tweet__date {
   font-size: 10px;
   color: gray;
   display: flex;
@@ -55,20 +55,20 @@
   padding-top: 2px;
 }
 
-.single-tweet_context_text {
+.single-tweet__text {
   margin: 0;
   font-size: 15px;
   line-height: 20px;
 }
 
-.single-tweet_context_like-container {
+.single-tweet__like-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
 }
 
-.single-tweet_context_like-button {
+.single-tweet__like-button {
   width: 20px;
   height: 20px;
   display: flex;
@@ -78,7 +78,7 @@
 }
 
 
-.single-tweet_context_like_count {
+.single-tweet__like-count {
   display: flex;
   flex-direction: row;
   align-items: center;

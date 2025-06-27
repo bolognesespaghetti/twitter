@@ -26,9 +26,9 @@
 .tweets-post-form{
 }
 
-.tweets-post-form_input{}
+.tweets-post-form__input{}
 
-.tweets-post-form_button{}
+.tweets-post-form__button{}
 
 .tweets-feed{}
 
@@ -47,7 +47,7 @@
   backdrop-filter: blur(4px);
 }
 
-.login-header_avatar{
+.login-header__avatar{
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -59,7 +59,7 @@
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.login-header_text {
+.login-header__text {
   display: flex;
   justify-content: flex-start;
   gap: 4px;

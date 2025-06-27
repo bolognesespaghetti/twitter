@@ -32,15 +32,12 @@
 
 .login-form_label{}
 
-.login-form_input{}
+.login-form__input{}
 
-.login-form_input{
-}
-
-.login-form_color-selector{
+.login-form__color-selector{
 
 }
 
-.login-form_submit{
+.login-form__submit{
 
 }
