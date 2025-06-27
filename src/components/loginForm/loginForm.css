@@ -30,16 +30,17 @@
 
 }
 
-.login-form_header{}
+.login-form_label{}
 
+.login-form_input{}
 
 .login-form_input{
 }
 
-.login-from_colour-selector{
+.login-form_color-selector{
 
 }
 
-.login-from_submit{
+.login-form_submit{
 
 }
