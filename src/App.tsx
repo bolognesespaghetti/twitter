@@ -47,11 +47,11 @@ function App() {
   return (
     <>
       {isShowingLoginOverlay && <LoginFrom onLogin={onLogin} />}
-      <div className="tweetsPageContainer">
-        <div className="tweetsPageContent">
-          <div className="tweetPostFormWrapper">
+      <div className="tweets-page-container">
+        <div className="tweets-page-content">
+          <div className="tweets-post-form-wrapper">
             <form
-              className="tweetPostForm"
+              className="tweets-post-form"
               onSubmit={(e) => {
                 e.preventDefault();
                 if (tweetText.trim()) {
@@ -61,16 +61,16 @@ function App() {
               }}
             >
               <input
-                className="tweetPostFormArea"
+                className="tweets-post-form_input"
                 type="text"
                 value={tweetText}
                 onChange={(e) => setTweetText(e.target.value)}
                 placeholder="че происходит?"
               />
-              <button className="tweetPostFormButton">post</button>
+              <button className="tweets-post-form_button">post</button>
             </form>
           </div>
-          <div className="tweetsContainer">
+          <div className="tweets-feed">
             {tweets.map((tweet) => (
               <Tweet
                 key={tweet.id}
@@ -82,14 +82,14 @@ function App() {
               />
             ))}
           </div>
-          <div className="loginHeader">
+          <div className="login-header">
             <div
-              className="loginHeaderAvatar"
+              className="login-header_avatar"
               style={{ backgroundColor: selectedColor }}
             >
               {loginInitial}
             </div>
-            <div className="loginHeaderText">{login}</div>
+            <div className="login-header_text">{login}</div>
           </div>
         </div>
       </div>

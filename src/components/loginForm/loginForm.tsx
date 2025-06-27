@@ -23,18 +23,20 @@ function LoginForm({ onLogin }) {
 
   return (
     <>
-      <div className="loginOverlay">
-        <form className="loginForm" onSubmit={handleSubmit}>
-          <label className="LoginLable">Login: </label>
+      <div className="overlay-login-container">
+        <form className="login-form" onSubmit={handleSubmit}>
+          <label className="login-form_lable">Login: </label>
           <input
-            className="inputLoginForm"
+            className="login-form_input"
             type="login"
             placeholder="insert login"
             value={login}
             onChange={(e) => setLogin(e.target.value)}
           ></input>
           {loginError !== "" && loginError}
-          <label className="setColourLable">select a colour: </label>
+          <label className="login-from_colour-selector">
+            select a colour:{" "}
+          </label>
           <select
             defaultValue={"Gold"}
             value={selectedColor}
@@ -44,7 +46,7 @@ function LoginForm({ onLogin }) {
             <option value="DarkOrange">DarkOrange</option>
             <option value="Purple">Purple</option>
           </select>
-          <button className="loginSubmit">Submit</button>
+          <button className="login-from_submit">Submit</button>
         </form>
       </div>
     </>

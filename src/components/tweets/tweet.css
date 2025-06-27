@@ -1,20 +1,90 @@
-.tweetPostForm {
+.tweets-feed-container{
+
+}
+
+.single-tweet {
+  width: 500px;
+  display: flex;
+  align-items: flex-start;
+  padding: 16px;
+  gap: 12px;
+  font-size: 14px;
+  overflow: show;
+  border-bottom: 1px solid #0000000a
+}
+
+.single-tweet_avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-top: 12px;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.single-tweet_context {
   display: flex;
   flex-direction: column;
-  gap:8px;
-}
-.setColourLable {
-  font-size: 16px;
 }
 
-.tweetPostFormArea{
+
+
+.single-tweet_context_header {
   display: flex;
-  width: 600px;
-  height: 2rem;
-  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  font-weight: bold;
 }
 
-.order-box {
+.single-tweet_context_author {
   display: flex;
-  flex-direction: column-reverse;
+  align-items: stretch;
+}
+
+.single-tweet_context_date {
+  font-size: 10px;
+  color: gray;
+  display: flex;
+  justify-content: flex-end;
+  font-weight: lighter;
+  padding-top: 2px;
+}
+
+.single-tweet_context_text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.single-tweet_context_like-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.single-tweet_context_like-button {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+
+.single-tweet_context_like_count {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  padding-left: 12px;
+  padding-top: 12px;
+  gap: 4px;
 }
