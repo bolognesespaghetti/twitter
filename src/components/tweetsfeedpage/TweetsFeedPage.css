@@ -1,0 +1,57 @@
+.tweets-feed-page-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.tweets-post-form-wrapper{
+  display: flex;
+  justify-content: center;
+  margin: 24px;
+}
+
+.tweets-post-form{
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.tweets-post-form__input{
+  height: 3rem;
+  width: 100%;
+  padding: 0 12px;
+  display: flex;
+  justify-content: center;
+
+}
+
+.tweets-post-form__button{
+  display: flex;
+  margin: 8px;
+  width: 100px;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+}
+
+.tweets-feed{}
+
+.tweets-page-container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  margin: 24px;
+}
+
+.tweets-page-content{
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+}

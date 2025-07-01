@@ -4,8 +4,7 @@ import { bulkTweet } from "./data/tweets";
 import LoginFrom from "./components/loginform/LoginForm";
 import LoginHeader from "./components/loginheader/LoginHeader";
 import { useState, useEffect } from "react";
-import TweetPostForm from "./components/tweetpostform/TweetPostForm";
-import TweetsFeed from "./components/tweetsfeed/TweetsFeed";
+import TweetsFeedPage from "./components/tweetsfeedpage/TweetsFeedPage.tsx";
 import TweetSingle from "./components/singletweet/SingleTweet.tsx";
 
 function App() {
@@ -61,12 +60,12 @@ function App() {
   return (
     <>
       <Route path="/feed">
-        <TweetPostForm
+        <TweetsFeedPage
           tweetText={tweetText}
           setTweetText={setTweetText}
           onSubmit={addTweet}
+          tweets={tweets}
         />
-        <TweetsFeed tweets={tweets} />
       </Route>
       <Route path="/tweets/:id">
         <TweetSingle tweets={tweets} />
