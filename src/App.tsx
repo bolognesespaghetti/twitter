@@ -1,5 +1,5 @@
 import "./App.css";
-import { Link, Redirect, Route, Switch, useLocation } from "wouter";
+import { Redirect, Route, Switch, useLocation } from "wouter";
 import { bulkTweet } from "./data/tweets";
 import LoginFrom from "./components/loginform/LoginForm";
 import LoginHeader from "./components/loginheader/LoginHeader";
@@ -13,13 +13,10 @@ function App() {
   const [tweets, setTweets] = useState(bulkTweet);
   const [tweetText, setTweetText] = useState("");
   const [selectedColor, setSelectedColor] = useState("blue");
-  const [isShowingLoginOverlay, setShowingLoginOverlay] =
-    useState<boolean>(false);
   const [isUserAuth, setIsUserAuth] = useState(false);
   const [_, navigate] = useLocation();
 
   function onLogin(username: string, color: string) {
-    setShowingLoginOverlay(false);
     setLogin(username);
     setSelectedColor(color);
     setIsUserAuth(true);
