@@ -1,23 +1,23 @@
 .tweets-feed-container{
-
+  margin-top: 12px;
 }
 
 .single-tweet {
-  width: 500px;
+  width: 600px;
+  height: auto;
   display: flex;
   align-items: flex-start;
-  padding: 16px;
-  gap: 12px;
-  font-size: 14px;
-  overflow: show;
   border-bottom: 1px solid #0000000a
+}
+
+.single-tweet_avatar-container{
+  margin-right: 8px;
 }
 
 .single-tweet__avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  margin-top: 12px;
   color: white;
   font-weight: bold;
   display: flex;
@@ -29,6 +29,9 @@
 .single-tweet-container {
   display: flex;
   flex-direction: column;
+  width: 600px;
+  padding: 0px 16px;
+  padding-bottom: 12px;
 }
 
 
@@ -36,7 +39,7 @@
 .single-tweet-header {
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  margin-bottom: 8px;
   align-items: center;
   font-weight: bold;
 }
@@ -47,17 +50,18 @@
 }
 
 .single-tweet__date {
-  font-size: 10px;
   color: gray;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
   font-weight: lighter;
-  padding-top: 2px;
+  height: 20px;
+  margin-left: 8px;
 }
 
 .single-tweet__text {
   margin: 0;
-  font-size: 15px;
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
   line-height: 20px;
 }
 
@@ -65,7 +69,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
+  padding-right: 16px;
+  margin-top: 12px;
 }
 
 .single-tweet__like-button {

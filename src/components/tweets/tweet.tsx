@@ -25,11 +25,13 @@ function Tweet({ id, author, text, date, likes, color }: TweetProps) {
       <div className="tweets-feed-container">
         <Link href={`/tweets/${id}`} className="link-to-single-tweet">
           <div className="single-tweet">
-            <div
-              className="single-tweet__avatar"
-              style={{ backgroundColor: color }}
-            >
-              {initial}
+            <div className="single-tweet_avatar-container">
+              <div
+                className="single-tweet__avatar"
+                style={{ backgroundColor: color }}
+              >
+                {initial}
+              </div>
             </div>
             <div className="single-tweet-container">
               <div className="single-tweet-header">

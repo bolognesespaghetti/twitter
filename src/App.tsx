@@ -47,9 +47,8 @@ function App() {
       color: selectedColor,
     };
 
-    setTweets([newTweet, ...tweets]); //позиция важна
+    setTweets([newTweet, ...tweets]);
   }
-  // можно делать несколько return
   if (isUserAuth === false) {
     return (
       <>
@@ -73,6 +72,8 @@ function App() {
           setTweetText={setTweetText}
           onSubmit={addTweet}
           tweets={tweets}
+          author={login}
+          color={selectedColor}
         />
       </Route>
       <Route path="/tweets/:id">
