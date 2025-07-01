@@ -1,0 +1,11 @@
+.account-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.account-tweets {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

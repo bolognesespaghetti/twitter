@@ -1,21 +1,33 @@
 import "./App.css";
-import Tweet from "./components/tweets/tweet";
+import { Redirect, Route, Switch, useLocation } from "wouter";
 import { bulkTweet } from "./data/tweets";
-import LoginFrom from "./components/loginForm/loginForm";
+import LoginFrom from "./components/loginform/LoginForm";
+import LoginHeader from "./components/loginheader/LoginHeader";
 import { useState, useEffect } from "react";
+import TweetsFeedPage from "./components/tweetsfeedpage/TweetsFeedPage.tsx";
+import TweetSingle from "./components/singletweet/SingleTweet.tsx";
+import Account from "./components/account/Account.tsx";
 
 function App() {
   const [login, setLogin] = useState("");
   const [tweets, setTweets] = useState(bulkTweet);
   const [tweetText, setTweetText] = useState("");
   const [selectedColor, setSelectedColor] = useState("blue");
-  const [isShowingLoginOverlay, setShowingLoginOverlay] =
-    useState<boolean>(true);
+  const [isUserAuth, setIsUserAuth] = useState(false);
+  const [_, navigate] = useLocation();
 
   function onLogin(username: string, color: string) {
-    setShowingLoginOverlay(false);
     setLogin(username);
     setSelectedColor(color);
+    setIsUserAuth(true);
+    navigate("/feed");
+  }
+
+  function logOut() {
+    setLogin("");
+    setIsUserAuth(false);
+    localStorage.removeItem("loginData");
+    navigate("/login");
   }
 
   useEffect(() => {
@@ -24,12 +36,6 @@ function App() {
       onLogin(loginData.login, loginData.color);
     }
   }, []);
-
-  const loginInitial = login
-    .split(" ")
-    .map((w) => w[0])
-    .join("")
-    .toUpperCase();
 
   function addTweet(text: string) {
     const newTweet = {
@@ -41,58 +47,42 @@ function App() {
       color: selectedColor,
     };
 
-    setTweets([newTweet, ...tweets]); //позиция важна
+    setTweets([newTweet, ...tweets]);
+  }
+  if (isUserAuth === false) {
+    return (
+      <>
+        <Switch>
+          <Route path="/">
+            <Redirect to="/login" />
+          </Route>
+          <Route path="/login">
+            <LoginFrom onLogin={onLogin} />
+          </Route>
+        </Switch>
+      </>
+    );
   }
 
   return (
     <>
-      {isShowingLoginOverlay && <LoginFrom onLogin={onLogin} />}
-      <div className="tweets-page-container">
-        <div className="tweets-page-content">
-          <div className="tweets-post-form-wrapper">
-            <form
-              className="tweets-post-form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (tweetText.trim()) {
-                  addTweet(tweetText);
-                  setTweetText("");
-                }
-              }}
-            >
-              <input
-                className="tweets-post-form__input"
-                type="text"
-                value={tweetText}
-                onChange={(e) => setTweetText(e.target.value)}
-                placeholder="че происходит?"
-              />
-              <button className="tweets-post-form__button">post</button>
-            </form>
-          </div>
-          <div className="tweets-feed">
-            {tweets.map((tweet) => (
-              <Tweet
-                key={tweet.id}
-                author={tweet.author}
-                text={tweet.text}
-                date={tweet.date}
-                likes={tweet.likes}
-                color={tweet.color}
-              />
-            ))}
-          </div>
-          <div className="login-header">
-            <div
-              className="login-header__avatar"
-              style={{ backgroundColor: selectedColor }}
-            >
-              {loginInitial}
-            </div>
-            <div className="login-header__text">{login}</div>
-          </div>
-        </div>
-      </div>
+      <Route path="/feed">
+        <TweetsFeedPage
+          tweetText={tweetText}
+          setTweetText={setTweetText}
+          onSubmit={addTweet}
+          tweets={tweets}
+          author={login}
+          color={selectedColor}
+        />
+      </Route>
+      <Route path="/tweets/:id">
+        <TweetSingle tweets={tweets} />
+      </Route>
+      <LoginHeader login={login} selectedColor={selectedColor} />
+      <Route path="/account">
+        <Account login={login} tweets={tweets} onLogout={logOut} />
+      </Route>
     </>
   );
 }
