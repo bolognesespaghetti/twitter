@@ -1,4 +1,5 @@
 import "./LoginHeader.css";
+import { Link, Route } from "wouter";
 
 function LoginHeader({ login, selectedColor }) {
   const loginInitial = login
@@ -10,12 +11,17 @@ function LoginHeader({ login, selectedColor }) {
   return (
     <>
       <div className="login-header">
-        <div
-          className="login-header__avatar"
-          style={{ backgroundColor: selectedColor }}
-        >
-          {loginInitial}
-        </div>
+        <Route>
+          <Link to="/account" className="login-header__avatar_link">
+            <div
+              className="login-header__avatar"
+              style={{ backgroundColor: selectedColor }}
+            >
+              {loginInitial}
+            </div>
+          </Link>
+        </Route>
+
         <div className="login-header__text">{login}</div>
       </div>
       ;

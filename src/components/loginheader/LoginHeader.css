@@ -25,6 +25,10 @@
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+.login-header__avatar_link{
+  color: inherit;
+}
+
 .login-header__text {
   display: flex;
   justify-content: flex-start;
@@ -35,3 +39,4 @@
   background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(4px);
 }
+

@@ -25,7 +25,7 @@ function TweetSingle({ tweets }) {
         onClick={() => navigate("/feed")}
         // onClick={() => window.history.back()}
       >
-        go back
+        ← go back
       </button>
     </div>
   );

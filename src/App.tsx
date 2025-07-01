@@ -6,6 +6,7 @@ import LoginHeader from "./components/loginheader/LoginHeader";
 import { useState, useEffect } from "react";
 import TweetsFeedPage from "./components/tweetsfeedpage/TweetsFeedPage.tsx";
 import TweetSingle from "./components/singletweet/SingleTweet.tsx";
+import Account from "./components/account/Account.tsx";
 
 function App() {
   const [login, setLogin] = useState("");
@@ -20,6 +21,13 @@ function App() {
     setSelectedColor(color);
     setIsUserAuth(true);
     navigate("/feed");
+  }
+
+  function logOut() {
+    setLogin("");
+    setIsUserAuth(false);
+    localStorage.removeItem("loginData");
+    navigate("/login");
   }
 
   useEffect(() => {
@@ -71,6 +79,9 @@ function App() {
         <TweetSingle tweets={tweets} />
       </Route>
       <LoginHeader login={login} selectedColor={selectedColor} />
+      <Route path="/account">
+        <Account login={login} tweets={tweets} onLogout={logOut} />
+      </Route>
     </>
   );
 }
