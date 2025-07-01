@@ -53,6 +53,7 @@ function TweetsFeedPage({
               {tweets.map((tweet) => (
                 <Tweet
                   id={tweet.id}
+                  key={tweet.id}
                   author={tweet.author}
                   text={tweet.text}
                   date={tweet.date}
