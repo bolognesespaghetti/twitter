@@ -1,7 +1,9 @@
 import { useState } from "react";
-import "./tweet.css";
+import { Link } from "wouter";
+import "./Tweet.css";
 
 type TweetProps = {
+  id: string;
   author: string;
   text: string;
   date: string;
@@ -9,7 +11,7 @@ type TweetProps = {
   color: string;
 };
 
-function Tweet({ author, text, date, likes, color }: TweetProps) {
+function Tweet({ id, author, text, date, likes, color }: TweetProps) {
   const [likeCount, setLikeCount] = useState(likes);
 
   const initial = author
@@ -34,6 +36,7 @@ function Tweet({ author, text, date, likes, color }: TweetProps) {
               <p className="single-tweet__date">{date}</p>
             </div>
             <p className="single-tweet__text">{text}</p>
+            <Link href={`/tweets/${id}`}>подробнее</Link>
             <div className="single-tweet__like-container">
               <button
                 className="single-tweet__like-button"

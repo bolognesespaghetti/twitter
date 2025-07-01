@@ -1,4 +1,4 @@
-import "./loginForm.css";
+import "./LoginForm.css";
 import { useState } from "react";
 
 function LoginForm({ onLogin }) {
