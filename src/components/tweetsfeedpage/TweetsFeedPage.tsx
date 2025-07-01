@@ -45,7 +45,7 @@ function TweetsFeedPage({
                   placeholder="Что происходит?"
                 />
                 <div className="tweets-post-form_button-container">
-                  <button className="tweets-post-form__button">post</button>
+                  <button className="tweets-post-form__button">Post</button>
                 </div>
               </form>
             </div>

@@ -11,6 +11,14 @@ function TweetSingle({ tweets }) {
 
   return (
     <div className="tweet-single-page">
+      <div className="tweet-single-page_back-button-container">
+        <button
+          className="tweet-single-page_back-button"
+          onClick={() => navigate("/feed")}
+        >
+          ← go back
+        </button>
+      </div>
       <Tweet
         key={tweet.id}
         id={tweet.id}
@@ -20,13 +28,6 @@ function TweetSingle({ tweets }) {
         likes={tweet.likes}
         color={tweet.color}
       />
-      <button
-        className="tweet-single-page_back-button"
-        onClick={() => navigate("/feed")}
-        // onClick={() => window.history.back()}
-      >
-        ← go back
-      </button>
     </div>
   );
 }

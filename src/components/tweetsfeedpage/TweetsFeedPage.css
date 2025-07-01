@@ -85,12 +85,12 @@
 
 .tweets-post-form__button{
   display: flex;
-  width: 108px;
+  width: 100px;
   height: 36px;
-  padding: 16px;
+  margin-left: 12px;
+  padding: 0px 16px;
   border: 1px;
   margin-left: 12px;
-  margin-top: 8px;
   font-weight: bold;
   font-size: 15px;
   color: white;

@@ -5,10 +5,21 @@
     flex-direction: column;
 }
 
+.tweet-single-page_back-button-container{
+    display: flex;
+    width: 600px;
+    margin: 8px 0;
+}
+
 .link-to-single-tweet{
     color: inherit;
 }
 
 .link-to-single-tweet:hover {
     color: inherit;
+}
+
+.tweet-single-page_back-button {
+    display: flex;
+    align-items: flex-start;
 }
