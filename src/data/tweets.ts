@@ -1,4 +1,4 @@
-export const bulkTweet = [
+export const bulkTweets = [
   {
     id: "0",
     author: "Иван Иванов",

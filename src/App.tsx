@@ -1,41 +1,40 @@
 import "./App.css";
 import { Redirect, Route, Switch, useLocation } from "wouter";
-import { bulkTweet } from "./data/tweets";
-import LoginFrom from "./components/loginform/LoginForm";
+import LoginFrom from "./components/loginform/loginForm.tsx";
 import LoginHeader from "./components/loginheader/LoginHeader";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import TweetsFeedPage from "./components/tweetsfeedpage/TweetsFeedPage.tsx";
 import TweetSingle from "./components/singletweet/SingleTweet.tsx";
 import Account from "./components/account/Account.tsx";
+import { useAppSelector } from "./state/hooks.ts";
+import { useDispatch } from "react-redux";
+import { onLogin as loginAction } from "./state/AuthSlice/AuthSlice.ts";
 
 function App() {
-  const [login, setLogin] = useState("");
-  const [tweets, setTweets] = useState(bulkTweet);
-  const [tweetText, setTweetText] = useState("");
-  const [selectedColor, setSelectedColor] = useState("blue");
-  const [isUserAuth, setIsUserAuth] = useState(false);
+  const tweets = useAppSelector((state) => state.tweets.tweets);
+  const login = useAppSelector((state) => state.auth.login);
+  const color = useAppSelector((state) => state.auth.color);
+  const isUserAuth = useAppSelector((state) => state.auth.isUserAuth);
+  const dispatch = useDispatch();
+
   const [_, navigate] = useLocation();
 
-  function onLogin(username: string, color: string) {
-    setLogin(username);
-    setSelectedColor(color);
-    setIsUserAuth(true);
+  function onLogin(login: string, color: string, isUserAuth: boolean) {
+    dispatch(loginAction({ login, color, isUserAuth }));
     navigate("/feed");
   }
 
   function logOut() {
-    setLogin("");
-    setIsUserAuth(false);
-    localStorage.removeItem("loginData");
+    dispatch(loginAction({ login: "", color: "Gold", isUserAuth: false }));
     navigate("/login");
   }
 
-  useEffect(() => {
-    const loginData = JSON.parse(localStorage.getItem("loginData"));
-    if (loginData && loginData.login && loginData.color) {
-      onLogin(loginData.login, loginData.color);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const loginData = JSON.parse(localStorage.getItem("loginData"));
+  //   if (loginData && loginData.login && loginData.color) {
+  //     onLogin(loginData.login, loginData.color);
+  //   }
+  // }, []);
 
   function addTweet(text: string) {
     const newTweet = {
@@ -44,7 +43,7 @@ function App() {
       text: text,
       date: "21.06",
       likes: 0,
-      color: selectedColor,
+      color: color,
     };
 
     setTweets([newTweet, ...tweets]);
@@ -73,13 +72,13 @@ function App() {
           onSubmit={addTweet}
           tweets={tweets}
           author={login}
-          color={selectedColor}
+          color={color}
         />
       </Route>
       <Route path="/tweets/:id">
         <TweetSingle tweets={tweets} />
       </Route>
-      <LoginHeader login={login} selectedColor={selectedColor} />
+      <LoginHeader login={login} selectedColor={color} />
       <Route path="/account">
         <Account login={login} tweets={tweets} onLogout={logOut} />
       </Route>
