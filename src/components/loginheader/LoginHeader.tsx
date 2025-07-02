@@ -1,7 +1,9 @@
+import { useAppSelector } from "../../state/hooks";
 import "./LoginHeader.css";
 import { Link } from "wouter";
 
-function LoginHeader({ login, selectedColor }) {
+function LoginHeader({}) {
+  const { login, color } = useAppSelector((state) => state.auth);
   const loginInitial = login
     .split(" ")
     .map((w) => w[0])
@@ -14,7 +16,7 @@ function LoginHeader({ login, selectedColor }) {
         <Link to="/account" className="login-header__avatar_link">
           <div
             className="login-header__avatar"
-            style={{ backgroundColor: selectedColor }}
+            style={{ backgroundColor: color }}
           >
             {loginInitial}
           </div>

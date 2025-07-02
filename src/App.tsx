@@ -8,46 +8,28 @@ import TweetSingle from "./components/singletweet/SingleTweet.tsx";
 import Account from "./components/account/Account.tsx";
 import { useAppSelector } from "./state/hooks.ts";
 import { useDispatch } from "react-redux";
-import { onLogin as loginAction } from "./state/AuthSlice/AuthSlice.ts";
+import { handleSignIn } from "./state/AuthSlice/AuthSlice.ts";
 
 function App() {
-  const tweets = useAppSelector((state) => state.tweets.tweets);
-  const login = useAppSelector((state) => state.auth.login);
-  const color = useAppSelector((state) => state.auth.color);
-  const isUserAuth = useAppSelector((state) => state.auth.isUserAuth);
+  const { isUserAuth } = useAppSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const [_, navigate] = useLocation();
+  useEffect(() => {
+    const rawData = localStorage.getItem("loginData");
+    if (rawData === null) {
+      return;
+    }
+    const loginData = JSON.parse(rawData);
+    if (loginData && loginData.login && loginData.color) {
+      const handleData = {
+        login: loginData.login,
+        color: loginData.color,
+        isUserAuth: true,
+      };
+      dispatch(handleSignIn(handleData));
+    }
+  }, []);
 
-  function onLogin(login: string, color: string, isUserAuth: boolean) {
-    dispatch(loginAction({ login, color, isUserAuth }));
-    navigate("/feed");
-  }
-
-  function logOut() {
-    dispatch(loginAction({ login: "", color: "Gold", isUserAuth: false }));
-    navigate("/login");
-  }
-
-  // useEffect(() => {
-  //   const loginData = JSON.parse(localStorage.getItem("loginData"));
-  //   if (loginData && loginData.login && loginData.color) {
-  //     onLogin(loginData.login, loginData.color);
-  //   }
-  // }, []);
-
-  function addTweet(text: string) {
-    const newTweet = {
-      id: crypto.randomUUID(),
-      author: login,
-      text: text,
-      date: "21.06",
-      likes: 0,
-      color: color,
-    };
-
-    setTweets([newTweet, ...tweets]);
-  }
   if (isUserAuth === false) {
     return (
       <>
@@ -56,7 +38,7 @@ function App() {
             <Redirect to="/login" />
           </Route>
           <Route path="/login">
-            <LoginFrom onLogin={onLogin} />
+            <LoginFrom />
           </Route>
         </Switch>
       </>
@@ -66,21 +48,14 @@ function App() {
   return (
     <>
       <Route path="/feed">
-        <TweetsFeedPage
-          tweetText={tweetText}
-          setTweetText={setTweetText}
-          onSubmit={addTweet}
-          tweets={tweets}
-          author={login}
-          color={color}
-        />
+        <TweetsFeedPage />
       </Route>
       <Route path="/tweets/:id">
-        <TweetSingle tweets={tweets} />
+        <TweetSingle />
       </Route>
-      <LoginHeader login={login} selectedColor={color} />
+      <LoginHeader />
       <Route path="/account">
-        <Account login={login} tweets={tweets} onLogout={logOut} />
+        <Account />
       </Route>
     </>
   );

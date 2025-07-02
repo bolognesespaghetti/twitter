@@ -1,29 +1,37 @@
 import "./LoginForm.css";
 import { useDispatch } from "react-redux";
-import { onLogin as loginAction } from "../../state/AuthSlice/AuthSlice";
+import { handleSignIn } from "../../state/AuthSlice/AuthSlice";
 import { useAppSelector } from "../../state/hooks.ts";
+import { useState } from "react";
+import { useLocation } from "wouter";
 
-function LoginForm({ onLogin }) {
-  // const [login, setLogin] = useState("");
+function LoginForm() {
   // const [loginError, setLoginError] = useState("");
-  // const [selectedColor, setSelectedColor] = useState("Gold");
-  const login = useAppSelector((state) => state.auth.login);
-  const color = useAppSelector((state) => state.auth.color);
+  // const login = useAppSelector((state) => state.auth.login);
+  // const color = useAppSelector((state) => state.auth.color);
+  // const isUserAuth = useAppSelector((state) => state.auth.isUserAuth);
+
+  const [login, setLogin] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [selectedColor, setSelectedColor] = useState("Gold");
   const dispatch = useDispatch();
+  const [_, navigate] = useLocation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (login.trim().split(" ").length !== 2) {
-    //   setLoginError("Login must contain 2 words");
-    //   return;
-    // }
+    setLoginError("");
+    if (login.trim().split(" ").length !== 2) {
+      setLoginError("Login must contain 2 words");
+      return;
+    }
 
-    // localStorage.setItem(
-    //   "loginData",
-    //   JSON.stringify({ login: login, color: selectedColor })
-    // );
-    onLogin(login, color);
-    // setLogin("");
+    const handleData = {
+      login: login,
+      color: selectedColor,
+      isUserAuth: true,
+    };
+    dispatch(handleSignIn(handleData));
+    navigate("/feed");
   };
 
   return (
@@ -36,14 +44,14 @@ function LoginForm({ onLogin }) {
             type="login"
             placeholder="insert login"
             value={login}
-            onChange={(e) => dispatch(loginAction({ login: login }))}
+            onChange={(e) => setLogin(e.target.value)}
           ></input>
-          {/* {loginError !== "" && loginError} */}
+          {loginError !== "" && loginError}
           <label className="login-form__color-selector">select a color: </label>
           <select
             defaultValue={"Gold"}
-            value={color}
-            onChange={(e) => dispatch(loginAction({ color: color }))}
+            value={selectedColor}
+            onChange={(e) => setSelectedColor(e.target.value)}
           >
             <option value="Gold">Gold</option>
             <option value="DarkOrange">DarkOrange</option>

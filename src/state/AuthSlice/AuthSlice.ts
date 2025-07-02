@@ -22,12 +22,16 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        onLogin: (state, action: PayloadAction<loginPayload>) => {
-            state.login = action.payload.login;
-            state.color = action.payload.color;
-            state.isUserAuth = action.payload.isUserAuth;
+        handleSignIn: (state, action: PayloadAction<loginPayload>) => {
+            const {login, color, isUserAuth} = action.payload
+            state.login = login
+            state.color = color
+            state.isUserAuth = isUserAuth
+            // state.login = action.payload.login;
+            // state.color = action.payload.color;
+            // state.isUserAuth = action.payload.isUserAuth;
         },
-        onSignOut: (state) => {
+        handleSignOut: (state) => {
             state.login = '';
             state.color = 'Gold';
             state.isUserAuth = false;
@@ -35,6 +39,6 @@ const authSlice = createSlice({
     },
 })
 
-export const {onLogin, onSignOut} = authSlice.actions;
+export const {handleSignIn, handleSignOut} = authSlice.actions;
 
 export default authSlice.reducer
