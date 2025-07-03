@@ -4,8 +4,6 @@ import "./SingleTweet.css";
 import { useAppSelector } from "../../state/hooks";
 
 function TweetSingle() {
-  // const params = useParams();
-  // const id = params.id;
   const { id } = useParams();
   const [_, navigate] = useLocation();
   const tweets = useAppSelector((state) => state.tweets.tweets);

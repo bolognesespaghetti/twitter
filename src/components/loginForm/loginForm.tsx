@@ -36,29 +36,31 @@ function LoginForm() {
 
   return (
     <>
-      <div className="overlay-login-container">
-        <form className="login-form" onSubmit={handleSubmit}>
-          <label className="login-form__label">Login: </label>
-          <input
-            className="login-form__input"
-            type="login"
-            placeholder="insert login"
-            value={login}
-            onChange={(e) => setLogin(e.target.value)}
-          ></input>
-          {loginError !== "" && loginError}
-          <label className="login-form__color-selector">select a color: </label>
-          <select
-            defaultValue={"Gold"}
-            value={selectedColor}
-            onChange={(e) => setSelectedColor(e.target.value)}
-          >
-            <option value="Gold">Gold</option>
-            <option value="DarkOrange">DarkOrange</option>
-            <option value="Purple">Purple</option>
-          </select>
-          <button className="login-form__submit">Submit</button>
-        </form>
+      <div className="login-form-container">
+        <div className="login-form-content">
+          <div className="login-form-header">Login to Twitter </div>
+          <form className="login-form" onSubmit={handleSubmit}>
+            <input
+              className="login-form__input-login"
+              type="login"
+              placeholder="Login"
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
+            ></input>
+            {loginError !== "" && loginError}
+            <select
+              className="login-form__color-selector"
+              defaultValue={"Gold"}
+              value={selectedColor}
+              onChange={(e) => setSelectedColor(e.target.value)}
+            >
+              <option value="Gold">Gold</option>
+              <option value="DarkOrange">DarkOrange</option>
+              <option value="Purple">Purple</option>
+            </select>
+            <button className="login-form__submit">Submit</button>
+          </form>
+        </div>
       </div>
     </>
   );

@@ -1,43 +1,66 @@
-*{
-    margin: 0;
-    padding: 0;
 
-}
- 
-.overlay-login-container {
-  padding: 200px 120px;
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  /* не делай оверлей через трансформ */
-  transform: translate(-50%, -50%); 
-  text-align: center;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 10;
+.login-form-container{
+  display: flex;
+  /* можно разместить по центру */
+  min-height: 100vh;
+  width: auto;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
 }
 
-.login-form {
-  background: white;
-  border-radius: 1rem;
-  padding: 2rem;
+.login-form-content{
   display: flex;
   flex-direction: column;
-  gap: 8px;
-
+  max-width: 384px;
+  gap: 12px;
 }
 
-.login-form_label{}
+.login-form-header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #1a1a1a;
+  font-size: 24px;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
 
-.login-form__input{}
+
+.login-form__input-login{
+  display: flex;
+  width: 384px;
+  height: 52px;
+  padding: 16px 18px;
+  box-sizing: border-box;
+  border: solid var(--gray-300, #D6D6D6);
+  border-radius: 10px;
+}
 
 .login-form__color-selector{
-
+  display: flex;
+  width: 384px;
+  height: 52px;
+  padding: 16px 18px;
+  box-sizing: border-box;
+  border: solid var(--gray-300, #D6D6D6);
+  border-radius: 10px;
 }
 
 .login-form__submit{
+  display: flex;
+  width: 384px;
+  height: 52px;
+  padding: 16px 18px;
+  box-sizing: border-box;
+  justify-content: center;
+  background-color: #d14214;
+  color: white;
+  padding: 1px 6px;
+  align-items: center;
+}
 
+.login-form{
+  display: flex;
+  gap: 12px;
 }

@@ -1,8 +1,10 @@
-import { useAppSelector } from "../../state/hooks";
 import "./LoginHeader.css";
+
 import { Link } from "wouter";
 
-function LoginHeader({}) {
+import { useAppSelector } from "../../state/hooks";
+
+function LoginHeader() {
   const { login, color } = useAppSelector((state) => state.auth);
   const loginInitial = login
     .split(" ")

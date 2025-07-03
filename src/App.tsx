@@ -1,14 +1,16 @@
 import "./App.css";
-import { Redirect, Route, Switch, useLocation } from "wouter";
+
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Redirect, Route } from "wouter";
+
+import Account from "./components/account/Account.tsx";
 import LoginFrom from "./components/loginform/loginForm.tsx";
 import LoginHeader from "./components/loginheader/LoginHeader";
-import { useEffect } from "react";
-import TweetsFeedPage from "./components/tweetsfeedpage/TweetsFeedPage.tsx";
 import TweetSingle from "./components/singletweet/SingleTweet.tsx";
-import Account from "./components/account/Account.tsx";
-import { useAppSelector } from "./state/hooks.ts";
-import { useDispatch } from "react-redux";
+import TweetsFeedPage from "./components/tweetsfeedpage/TweetsFeedPage.tsx";
 import { handleSignIn } from "./state/AuthSlice/AuthSlice.ts";
+import { useAppSelector } from "./state/hooks.ts";
 
 function App() {
   const { isUserAuth } = useAppSelector((state) => state.auth);
@@ -33,14 +35,10 @@ function App() {
   if (isUserAuth === false) {
     return (
       <>
-        <Switch>
-          <Route path="/">
-            <Redirect to="/login" />
-          </Route>
-          <Route path="/login">
-            <LoginFrom />
-          </Route>
-        </Switch>
+        <Route path="/login" component={LoginFrom} />
+        <Route>
+          <Redirect to="/login" />
+        </Route>
       </>
     );
   }
