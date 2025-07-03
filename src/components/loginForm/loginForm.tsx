@@ -47,7 +47,9 @@ function LoginForm() {
               value={login}
               onChange={(e) => setLogin(e.target.value)}
             ></input>
-            {loginError !== "" && loginError}
+            {loginError !== "" && (
+              <div className="login-form_error">{loginError}</div>
+            )}
             <select
               className="login-form__color-selector"
               defaultValue={"Gold"}
