@@ -2,7 +2,7 @@
 .login-form-container{
   display: flex;
   /* можно разместить по центру */
-  min-height: 100vh;
+  min-height: 90vh;
   width: auto;
   justify-content: center;
   align-items: center;
@@ -54,7 +54,7 @@
   padding: 16px 18px;
   box-sizing: border-box;
   justify-content: center;
-  background-color: #d14214;
+  background-color: rgb(29, 155, 240);;
   color: white;
   padding: 1px 6px;
   align-items: center;
