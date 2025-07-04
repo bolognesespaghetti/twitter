@@ -1,18 +1,21 @@
 import "./Account.css";
-import Tweet from "../tweets/Tweet";
+import Tweet from "../tweets/tweet";
 import { useDispatch } from "react-redux";
 import { useLocation } from "wouter";
 import { handleSignIn, handleSignOut } from "../../state/AuthSlice/AuthSlice";
 import { useAppSelector } from "../../state/hooks";
+import { useState } from "react";
 
 function Account() {
-  const [login, setLogin] = useState("");
+  const { username } = useAppSelector((state) => state.auth);
+  const [stateUsername, setStateUsername] = useState(username);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [selectedColor, setSelectedColor] = useState("Gold");
+  const [usernameError, setUsernameError] = useState("");
   const tweets = useAppSelector((state) => state.tweets.tweets);
-  const { username, color, email, password } = useAppSelector(
-    (state) => state.auth
-  );
-  const tweetsFromAccount = tweets.filter((tweet) => tweet.author == login);
+
+  const tweetsFromAccount = tweets.filter((tweet) => tweet.author == username);
   const dispatch = useDispatch();
   const [_, navigate] = useLocation();
 
@@ -22,23 +25,23 @@ function Account() {
   }
 
   const handleSubmit = (e) => {
-    return;
-  };
-  //   e.preventDefault();
-  //   setLoginError("");
-  //   if (login.trim().split(" ").length !== 2) {
-  //     setLoginError("Login must contain 2 words");
-  //     return;
-  //   }
+    e.preventDefault();
+    setUsernameError("");
+    if (stateUsername.trim().split(" ").length !== 2) {
+      alert("Login must contain 2 words");
+      return;
+    }
 
-  //   const handleData = {
-  //     login: login,
-  //     color: selectedColor,
-  //     isUserAuth: true,
-  //     email: email,
-  //     password: password,
-  //   };
-  //   dispatch(handleSignIn(handleData));
+    const handleData = {
+      username: stateUsername,
+      color: selectedColor,
+      isUserAuth: true,
+      email: email,
+      password: password,
+    };
+    localStorage.setItem("loginData", JSON.stringify(handleData));
+    dispatch(handleSignIn(handleData));
+  };
 
   return (
     <>
@@ -51,24 +54,27 @@ function Account() {
             <form className="account-form" onSubmit={handleSubmit}>
               <input
                 className="account-form_input-username"
-                type="login"
-                placeholder="Login"
-                value={login}
-                onChange={(e) => setLogin(e.target.value)}
+                type="username"
+                placeholder="username"
+                value={stateUsername}
+                onChange={(e) => setStateUsername(e.target.value)}
               ></input>
+              {usernameError !== "" && (
+                <div className="login-form_error">{usernameError}</div>
+              )}
               <input
                 className="account-form_input-email"
                 type="email"
                 placeholder="email"
                 value={email}
-                onChange={(e) => setLogin(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               ></input>
               <input
                 className="account-form_input-password"
                 type="password"
                 placeholder="password"
                 value={password}
-                onChange={(e) => setLogin(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               ></input>
               <select
                 className="account-form_selector-color"

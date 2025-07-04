@@ -5,8 +5,8 @@ import { Link } from "wouter";
 import { useAppSelector } from "../../state/hooks";
 
 function LoginHeader() {
-  const { login, color } = useAppSelector((state) => state.auth);
-  const loginInitial = login
+  const { username, color } = useAppSelector((state) => state.auth);
+  const loginInitial = username
     .split(" ")
     .map((w) => w[0])
     .join("")
@@ -23,7 +23,7 @@ function LoginHeader() {
             {loginInitial}
           </div>
         </Link>
-        <div className="login-header__text">{login}</div>
+        <div className="login-header__text">{username}</div>
       </div>
       ;
     </>

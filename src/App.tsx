@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Redirect, Route } from "wouter";
 
@@ -14,24 +14,38 @@ import { useAppSelector } from "./state/hooks.ts";
 
 function App() {
   const { isUserAuth } = useAppSelector((state) => state.auth);
+  const [isAppReady, setIsAppReady] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const rawData = localStorage.getItem("loginData");
     if (rawData === null) {
+      setIsAppReady(true);
       return;
     }
     const loginData = JSON.parse(rawData);
-    if (loginData && loginData.login && loginData.color) {
+    if (
+      loginData &&
+      loginData.username &&
+      loginData.color &&
+      loginData.email &&
+      loginData.password
+    ) {
       const handleData = {
-        login: loginData.login,
+        username: loginData.username,
         color: loginData.color,
         isUserAuth: true,
+        email: loginData.email,
+        password: loginData.password,
       };
       dispatch(handleSignIn(handleData));
+      setIsAppReady(true);
     }
   }, []);
 
+  if (isAppReady === false) {
+    return <></>;
+  }
   if (isUserAuth === false) {
     return (
       <>

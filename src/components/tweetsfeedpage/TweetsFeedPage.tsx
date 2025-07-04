@@ -8,9 +8,9 @@ import { useDispatch } from "react-redux";
 function TweetsFeedPage() {
   const tweets = useAppSelector((state) => state.tweets.tweets);
   const [tweetText, setTweetText] = useState("");
-  const { login, color } = useAppSelector((state) => state.auth);
+  const { username, color } = useAppSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const initial = login
+  const initial = username
     .split(" ")
     .map((w) => w[0])
     .join("")
@@ -19,7 +19,7 @@ function TweetsFeedPage() {
   function onSubmit(text: string) {
     const newTweet = {
       id: crypto.randomUUID(),
-      author: login,
+      author: username,
       text: text,
       date: "21.06",
       likes: 0,

@@ -27,7 +27,7 @@
 }
 
 
-.login-form__input-login{
+.login-form__input-username,.login-form__input-password,.login-form__input-email{
   display: flex;
   width: 384px;
   height: 52px;
