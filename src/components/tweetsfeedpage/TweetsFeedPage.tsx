@@ -1,19 +1,33 @@
 import "./TweetsFeedPage.css";
 import Tweet from "../tweets/Tweet";
+import { useAppSelector } from "../../state/hooks";
+import { useState } from "react";
+import { setTweets } from "../../state/TweetSlice/TweetSlice";
+import { useDispatch } from "react-redux";
 
-function TweetsFeedPage({
-  tweetText,
-  setTweetText,
-  onSubmit,
-  tweets,
-  author,
-  color,
-}) {
-  const initial = author
+function TweetsFeedPage() {
+  const tweets = useAppSelector((state) => state.tweets.tweets);
+  const [tweetText, setTweetText] = useState("");
+  const { login, color } = useAppSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const initial = login
     .split(" ")
     .map((w) => w[0])
     .join("")
     .toUpperCase();
+
+  function onSubmit(text: string) {
+    const newTweet = {
+      id: crypto.randomUUID(),
+      author: login,
+      text: text,
+      date: "21.06",
+      likes: 0,
+      color: color,
+    };
+    const newTweets = { tweets: [newTweet, ...tweets] };
+    dispatch(setTweets(newTweets));
+  }
 
   return (
     <>

@@ -1,9 +1,21 @@
 import "./Account.css";
 import Tweet from "../tweets/Tweet";
+import { useDispatch } from "react-redux";
+import { useLocation } from "wouter";
+import { handleSignOut } from "../../state/AuthSlice/AuthSlice";
+import { useAppSelector } from "../../state/hooks";
 
-function Account({ login, tweets, onLogout }) {
+function Account() {
+  const tweets = useAppSelector((state) => state.tweets.tweets);
+  const { login } = useAppSelector((state) => state.auth);
   const tweetsFromAccount = tweets.filter((tweet) => tweet.author == login);
+  const dispatch = useDispatch();
+  const [_, navigate] = useLocation();
 
+  function clickLogOut() {
+    dispatch(handleSignOut());
+    navigate("/login");
+  }
   return (
     <>
       <div className="account-container">
@@ -20,7 +32,7 @@ function Account({ login, tweets, onLogout }) {
             />
           ))}
         </div>
-        <button className="logout-button" onClick={onLogout}>
+        <button className="logout-button" onClick={clickLogOut}>
           LogOut
         </button>
       </div>

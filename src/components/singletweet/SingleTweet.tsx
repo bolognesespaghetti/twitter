@@ -1,13 +1,13 @@
 import { useParams, useLocation } from "wouter";
 import Tweet from "../tweets/Tweet";
 import "./SingleTweet.css";
+import { useAppSelector } from "../../state/hooks";
 
-function TweetSingle({ tweets }) {
-  // const params = useParams();
-  // const id = params.id;
+function TweetSingle() {
   const { id } = useParams();
-  const tweet = tweets.find((tweet) => tweet.id === id);
   const [_, navigate] = useLocation();
+  const tweets = useAppSelector((state) => state.tweets.tweets);
+  const tweet = tweets.find((tweet) => tweet.id === id);
 
   return (
     <div className="tweet-single-page">
