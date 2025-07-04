@@ -6,8 +6,10 @@ import { handleSignIn, handleSignOut } from "../../state/AuthSlice/AuthSlice";
 import { useAppSelector } from "../../state/hooks";
 
 function Account() {
+  const [login, setLogin] = useState("");
+  const [selectedColor, setSelectedColor] = useState("Gold");
   const tweets = useAppSelector((state) => state.tweets.tweets);
-  const { login, color, email, password } = useAppSelector(
+  const { username, color, email, password } = useAppSelector(
     (state) => state.auth
   );
   const tweetsFromAccount = tweets.filter((tweet) => tweet.author == login);
@@ -78,13 +80,6 @@ function Account() {
                 <option value="DarkOrange">DarkOrange</option>
                 <option value="Purple">Purple</option>
               </select>
-              {/* <input
-                className="account-form_input-color"
-                type="color"
-                placeholder="color"
-                value={color}
-                onChange={(e) => setLogin(e.target.value)}
-              ></input> */}
               <div className="button-container">
                 <button className="update-info-button">Update info</button>
                 <button className="logout-button" onClick={clickLogOut}>
