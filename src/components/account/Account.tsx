@@ -5,6 +5,7 @@ import { useLocation } from "wouter";
 import { handleSignIn, handleSignOut } from "../../state/AuthSlice/AuthSlice";
 import { useAppSelector } from "../../state/hooks";
 import { useState } from "react";
+import { Link } from "wouter";
 
 function Account() {
   const { username } = useAppSelector((state) => state.auth);
@@ -26,9 +27,16 @@ function Account() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUsernameError("");
     if (stateUsername.trim().split(" ").length !== 2) {
       alert("Login must contain 2 words");
+      return;
+    }
+    if (email.length === 0) {
+      alert("Email cannot be empty");
+      return;
+    }
+    if (password.length === 0) {
+      alert("Password cannot be empty");
       return;
     }
 
@@ -45,6 +53,11 @@ function Account() {
 
   return (
     <>
+      <div className="button-back-container">
+        <button className="button-back" onClick={() => navigate("/feed")}>
+          ←
+        </button>
+      </div>
       <div className="account-container">
         <div className="account-content">
           <div className="account-form-container">

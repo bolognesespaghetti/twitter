@@ -1,5 +1,5 @@
 import { useParams, useLocation } from "wouter";
-import Tweet from "../tweets/Tweet";
+import Tweet from "../tweets/tweet";
 import "./SingleTweet.css";
 import { useAppSelector } from "../../state/hooks";
 
@@ -10,25 +10,25 @@ function TweetSingle() {
   const tweet = tweets.find((tweet) => tweet.id === id);
 
   return (
-    <div className="tweet-single-page">
-      <div className="tweet-single-page_back-button-container">
-        <button
-          className="tweet-single-page_back-button"
-          onClick={() => navigate("/feed")}
-        >
-          ← go back
-        </button>
+    <>
+      <button
+        className="tweet-single-page_back-button"
+        onClick={() => navigate("/feed")}
+      >
+        ←
+      </button>
+      <div className="tweet-single-page">
+        <Tweet
+          key={tweet.id}
+          id={tweet.id}
+          author={tweet.author}
+          text={tweet.text}
+          date={tweet.date}
+          likes={tweet.likes}
+          color={tweet.color}
+        />
       </div>
-      <Tweet
-        key={tweet.id}
-        id={tweet.id}
-        author={tweet.author}
-        text={tweet.text}
-        date={tweet.date}
-        likes={tweet.likes}
-        color={tweet.color}
-      />
-    </div>
+    </>
   );
 }
 

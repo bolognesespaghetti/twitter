@@ -25,7 +25,6 @@ function LoginHeader() {
         </Link>
         <div className="login-header__text">{username}</div>
       </div>
-      ;
     </>
   );
 }
