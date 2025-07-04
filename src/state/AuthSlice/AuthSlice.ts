@@ -1,19 +1,25 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 interface LoginState {
-    login: string,
+    username: string,
+    password: string,
+    email: string
     color: string,
     isUserAuth: boolean,
 }
 
 const initialState: LoginState = {
-  login: "",
-  color: "Gold",
-  isUserAuth : false
+    username: "",
+    password: "",
+    email: "",
+    color: "Gold",
+    isUserAuth : false,
 };
 
 interface loginPayload {
-    login: string,
+    username: string,
+    password: string,
+    email: string,
     color: string,
     isUserAuth: boolean,
 }
@@ -23,16 +29,17 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         handleSignIn: (state, action: PayloadAction<loginPayload>) => {
-            const {login, color, isUserAuth} = action.payload
-            state.login = login
+            const { color, isUserAuth, password, username, email} = action.payload
+            state.username = username
+            state.password = password
+            state.email = email
             state.color = color
             state.isUserAuth = isUserAuth
-            // state.login = action.payload.login;
-            // state.color = action.payload.color;
-            // state.isUserAuth = action.payload.isUserAuth;
         },
         handleSignOut: (state) => {
-            state.login = '';
+            state.username = ""
+            state.password = ""
+            state.email = ""
             state.color = 'Gold';
             state.isUserAuth = false;
         }
