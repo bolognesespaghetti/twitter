@@ -32,6 +32,30 @@ function TweetsFeedPage() {
     dispatch(setTweets(newTweets));
   }
 
+  const addPost = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.post(
+        RequestsRoute.POST_URL,
+        { postText: tweetText },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = response.data;
+      console.log(data);
+
+      if (data.ok && data.postID) {
+        feed();
+      }
+    } catch (errors) {
+      console.log(errors);
+    }
+  };
+
   const feed = async () => {
     try {
       const response = await axios.post(RequestsRoute.FEED_URL);
@@ -39,8 +63,8 @@ function TweetsFeedPage() {
       console.log(data);
 
       if (data.ok && data.feed) {
-        const updatedTweets = [...data.feed, ...tweets];
-        dispatch(setTweets({ tweets: updatedTweets }));
+        // const updatedTweets = [...data.feed, ...tweets];
+        dispatch(setTweets({ tweets: data.feed }));
       } else {
         console.log(data.error);
       }
@@ -71,6 +95,7 @@ function TweetsFeedPage() {
                   e.preventDefault();
                   if (tweetText.trim()) {
                     onSubmit(tweetText);
+                    addPost();
                     setTweetText("");
                   }
                 }}
