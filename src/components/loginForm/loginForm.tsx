@@ -42,7 +42,6 @@ function LoginForm() {
         {
           headers: {
             "Content-Type": "application/json",
-            // здесь в signup нужно будет воткнуть Authorization: Bearer {токен}
           },
         }
       );

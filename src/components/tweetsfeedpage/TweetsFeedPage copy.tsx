@@ -1,18 +1,15 @@
 import "./TweetsFeedPage.css";
 import Tweet from "../tweets/tweet";
 import { useAppSelector } from "../../state/hooks";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { setTweets } from "../../state/TweetSlice/TweetSlice";
 import { useDispatch } from "react-redux";
-import axios from "axios";
-import RequestsRoute from "../requestsurls";
 
 function TweetsFeedPage() {
   const tweets = useAppSelector((state) => state.tweets.tweets);
   const [tweetText, setTweetText] = useState("");
   const { username, color } = useAppSelector((state) => state.auth);
   const dispatch = useDispatch();
-
   const initial = username
     .split(" ")
     .map((w) => w[0])
@@ -31,27 +28,6 @@ function TweetsFeedPage() {
     const newTweets = { tweets: [newTweet, ...tweets] };
     dispatch(setTweets(newTweets));
   }
-
-  const feed = async () => {
-    try {
-      const response = await axios.post(RequestsRoute.FEED_URL);
-      const data = response.data;
-      console.log(data);
-
-      if (data.ok && data.feed) {
-        const updatedTweets = [...data.feed, ...tweets];
-        dispatch(setTweets({ tweets: updatedTweets }));
-      } else {
-        console.log(data.error);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    feed();
-  }, []);
 
   return (
     <>
