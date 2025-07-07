@@ -1,5 +1,4 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { bulkTweets } from '../../data/tweets.ts';
 
 interface Tweet {
     id: string;
@@ -15,7 +14,7 @@ interface TweetState {
 }
 
 const initialState: TweetState = {
-    tweets: bulkTweets
+    tweets: []
 }
 
 const tweetsSlice = createSlice({

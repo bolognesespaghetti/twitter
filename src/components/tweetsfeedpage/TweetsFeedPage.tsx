@@ -9,9 +9,13 @@ import RequestsRoute from "../requestsurls";
 
 function TweetsFeedPage() {
   const tweets = useAppSelector((state) => state.tweets.tweets);
-  const [tweetText, setTweetText] = useState("");
   const { username, color } = useAppSelector((state) => state.auth);
+  const [tweetText, setTweetText] = useState("");
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    getFeed();
+  }, []);
 
   const initial = username
     .split(" ")
@@ -19,44 +23,35 @@ function TweetsFeedPage() {
     .join("")
     .toUpperCase();
 
-  function onSubmit(text: string) {
-    const newTweet = {
-      id: crypto.randomUUID(),
-      author: username,
-      text: text,
-      date: "21.06",
-      likes: 0,
-      color: color,
-    };
-    const newTweets = { tweets: [newTweet, ...tweets] };
-    dispatch(setTweets(newTweets));
+  function onSubmit() {
+    addPost();
   }
 
   const addPost = async () => {
+    console.log("addPost");
     const token = localStorage.getItem("token");
+    const requestData = { postText: tweetText };
+    setTweetText("");
     try {
-      const response = await axios.post(
-        RequestsRoute.POST_URL,
-        { postText: tweetText },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.post(RequestsRoute.POST_URL, requestData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = response.data;
       console.log(data);
 
-      if (data.ok && data.postID) {
-        feed();
+      if (data.ok && data.postId) {
+        getFeed();
       }
     } catch (errors) {
       console.log(errors);
     }
   };
 
-  const feed = async () => {
+  const getFeed = async () => {
+    console.log("feed");
     try {
       const response = await axios.post(RequestsRoute.FEED_URL);
       const data = response.data;
@@ -72,10 +67,6 @@ function TweetsFeedPage() {
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    feed();
-  }, []);
 
   return (
     <>
@@ -95,8 +86,6 @@ function TweetsFeedPage() {
                   e.preventDefault();
                   if (tweetText.trim()) {
                     onSubmit(tweetText);
-                    addPost();
-                    setTweetText("");
                   }
                 }}
               >

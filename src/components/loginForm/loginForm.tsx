@@ -72,7 +72,7 @@ function LoginForm() {
     <>
       <div className="login-form-container">
         <div className="login-form-content">
-          <div className="login-form-header">Login to Twitter </div>
+          <div className="login-form-header">Sign Up to Twitter </div>
           <form className="login-form" onSubmit={handleSubmit}>
             <input
               className="login-form__input-username"

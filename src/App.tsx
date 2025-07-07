@@ -51,9 +51,9 @@ function App() {
   if (isUserAuth === false) {
     return (
       <>
-        <Route path="/login" component={LoginFrom} />
-        <Route>
-          <Redirect to="/login" />
+        <Route path="/signup" component={LoginFrom} />
+        <Route path="/signin">
+          <SignIn />
         </Route>
       </>
     );
@@ -80,9 +80,6 @@ function App() {
       <LoginHeader />
       <Route path="/account">
         <Account />
-      </Route>
-      <Route path="/signin">
-        <SignIn />
       </Route>
     </>
   );
