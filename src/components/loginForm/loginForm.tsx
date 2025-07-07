@@ -3,13 +3,10 @@ import { useDispatch } from "react-redux";
 import { handleSignIn } from "../../state/AuthSlice/AuthSlice";
 import { useState } from "react";
 import { useLocation } from "wouter";
+import RequestsRoute from "./requestsurls";
+import axios from "axios";
 
 function LoginForm() {
-  // const [loginError, setLoginError] = useState("");
-  // const login = useAppSelector((state) => state.auth.login);
-  // const color = useAppSelector((state) => state.auth.color);
-  // const isUserAuth = useAppSelector((state) => state.auth.isUserAuth);
-
   const [username, setUsername] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [password, setPassword] = useState("");
@@ -18,24 +15,58 @@ function LoginForm() {
   const dispatch = useDispatch();
   const [_, navigate] = useLocation();
 
-  const handleSubmit = (e) => {
+  const handleData = {
+    username: username,
+    color: selectedColor,
+    isUserAuth: true,
+    password: password,
+    email: email,
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setUsernameError("");
     if (username.trim().split(" ").length !== 2) {
       setUsernameError("Login must contain 2 words");
       return;
     }
+    try {
+      const response = await axios.post(
+        RequestsRoute.SING_UP_URL,
+        {
+          username: username,
+          password: password,
+          email: email,
+          color: selectedColor,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            // здесь в signup нужно будет воткнуть Authorization: Bearer {токен}
+          },
+        }
+      );
 
-    const handleData = {
-      username: username,
-      color: selectedColor,
-      isUserAuth: true,
-      password: password,
-      email: email,
-    };
-    dispatch(handleSignIn(handleData));
-    localStorage.setItem("loginData", JSON.stringify(handleData));
-    navigate("/feed");
+      const data = await response.data;
+      console.log(data);
+
+      if (data.ok && data.token) {
+        localStorage.setItem("token", data.token);
+        dispatch(
+          handleSignIn({
+            email,
+            username,
+            color: selectedColor,
+            token: data.token,
+            isUserAuth: true,
+          })
+        );
+        navigate("/feed");
+        localStorage.setItem("loginData", JSON.stringify(handleData));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
