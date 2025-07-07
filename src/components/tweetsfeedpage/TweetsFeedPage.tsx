@@ -1,5 +1,5 @@
 import "./TweetsFeedPage.css";
-import Tweet from "../tweets/Tweet";
+import Tweet from "../tweets/tweet";
 import { useAppSelector } from "../../state/hooks";
 import { useState } from "react";
 import { setTweets } from "../../state/TweetSlice/TweetSlice";

@@ -11,6 +11,7 @@ import TweetSingle from "./components/singletweet/SingleTweet.tsx";
 import TweetsFeedPage from "./components/tweetsfeedpage/TweetsFeedPage.tsx";
 import { handleSignIn } from "./state/AuthSlice/AuthSlice.ts";
 import { useAppSelector } from "./state/hooks.ts";
+import SignIn from "./components/SignIn/signin.tsx";
 
 function App() {
   const { isUserAuth } = useAppSelector((state) => state.auth);
@@ -37,6 +38,7 @@ function App() {
         isUserAuth: true,
         email: loginData.email,
         password: loginData.password,
+        token: loginData.token,
       };
       dispatch(handleSignIn(handleData));
       setIsAppReady(true);
@@ -56,6 +58,16 @@ function App() {
       </>
     );
   }
+  // if (localStorage.getItem("token")) {
+  //   return (
+  //     <>
+  //       <Route path="/signin" component={SignIn} />
+  //       <Route>
+  //         <Redirect to="signin" />
+  //       </Route>
+  //     </>
+  //   );
+  // }
 
   return (
     <>
@@ -68,6 +80,9 @@ function App() {
       <LoginHeader />
       <Route path="/account">
         <Account />
+      </Route>
+      <Route path="/signin">
+        <SignIn />
       </Route>
     </>
   );

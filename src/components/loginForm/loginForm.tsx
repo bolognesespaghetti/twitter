@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { handleSignIn } from "../../state/AuthSlice/AuthSlice";
 import { useState } from "react";
 import { useLocation } from "wouter";
-import RequestsRoute from "./requestsurls";
+import RequestsRoute from "../requestsurls.ts";
 import axios from "axios";
 
 function LoginForm() {
@@ -32,7 +32,7 @@ function LoginForm() {
     }
     try {
       const response = await axios.post(
-        RequestsRoute.SING_UP_URL,
+        RequestsRoute.SIGN_UP_URL,
         {
           username: username,
           password: password,
