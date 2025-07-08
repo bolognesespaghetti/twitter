@@ -1,12 +1,12 @@
-import "./LoginForm.css";
+import "./SignUp.css";
 import { useDispatch } from "react-redux";
 import { handleSignIn } from "../../state/AuthSlice/AuthSlice";
 import { useState } from "react";
-import { useLocation } from "wouter";
+import { Link, useLocation } from "wouter";
 import RequestsRoute from "../requestsurls.ts";
 import axios from "axios";
 
-function LoginForm() {
+function SignUp() {
   const [username, setUsername] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +19,6 @@ function LoginForm() {
     username: username,
     color: selectedColor,
     isUserAuth: true,
-    password: password,
     email: email,
   };
 
@@ -110,10 +109,15 @@ function LoginForm() {
             </select>
             <button className="login-form__submit">Submit</button>
           </form>
+          <div className="login-form-border-line"></div>
+          <div className="login-form-sigh-up-container">
+            <div className="login-form-sign-up">Already have an account?</div>
+            <Link to="/signin">Sign in</Link>
+          </div>
         </div>
       </div>
     </>
   );
 }
 
-export default LoginForm;
+export default SignUp;

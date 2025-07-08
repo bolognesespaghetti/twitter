@@ -68,3 +68,17 @@
 .login-form_error{
   color: #d14214;
 }
+
+.login-form-border-line{
+  width: 100%;
+  height: 1px;
+  border-radius: 2px;
+  background-color: #eaeaea;
+  outline: none;
+}
+
+.login-form-sigh-up-container{
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}

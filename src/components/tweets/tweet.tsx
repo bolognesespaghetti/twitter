@@ -36,7 +36,7 @@ function Tweet({ id, author, text, date, likes, color }: TweetProps) {
             <div className="single-tweet-container">
               <div className="single-tweet-header">
                 <div className="single-tweet__author">{author}</div>
-                <p className="single-tweet__date">{date}</p>
+                <div className="single-tweet__date">{date}</div>
               </div>
               <p className="single-tweet__text">{text}</p>
               <div className="single-tweet__like-container">

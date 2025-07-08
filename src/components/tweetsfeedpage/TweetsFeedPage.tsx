@@ -58,7 +58,6 @@ function TweetsFeedPage() {
       console.log(data);
 
       if (data.ok && data.feed) {
-        // const updatedTweets = [...data.feed, ...tweets];
         dispatch(setTweets({ tweets: data.feed }));
       } else {
         console.log(data.error);

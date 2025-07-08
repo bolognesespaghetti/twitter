@@ -1,8 +1,8 @@
-import "../loginform/loginForm.css";
+import "../SignUp/SignUp.css";
 import { useDispatch } from "react-redux";
 import { handleSignIn } from "../../state/AuthSlice/AuthSlice";
 import { useState } from "react";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
 import axios from "axios";
 import RequestsRoute from "../requestsurls";
 
@@ -11,21 +11,9 @@ function SignIn() {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
   const [_, navigate] = useLocation();
-  const [username, setUsername] = useState("");
-  const [usernameError, setUsernameError] = useState("");
-  const [selectedColor, setSelectedColor] = useState("Gold");
-
-  // const handleData = {
-  //   username: username,
-  //   color: selectedColor,
-  //   isUserAuth: true,
-  //   password: password,
-  //   email: email,
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
         RequestsRoute.SIGN_IN_URL,
@@ -36,7 +24,6 @@ function SignIn() {
         {
           headers: {
             "Content-Type": "application/json",
-            Token: token,
           },
         }
       );
@@ -45,6 +32,7 @@ function SignIn() {
       console.log(data);
 
       if (data.ok && data.username && data.token && data.color) {
+        localStorage.setItem("Token", data.token);
         dispatch(
           handleSignIn({
             email,
@@ -83,6 +71,11 @@ function SignIn() {
             ></input>
             <button className="login-form__submit">Submit</button>
           </form>
+          <div className="login-form-border-line"></div>
+          <div className="login-form-sigh-up-container">
+            <div className="login-form-sign-up">Dont have an account?</div>
+            <Link to="/signup">Sign Up</Link>
+          </div>
         </div>
       </div>
     </>
