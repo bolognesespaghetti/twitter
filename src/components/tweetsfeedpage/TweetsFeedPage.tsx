@@ -2,10 +2,8 @@ import "./TweetsFeedPage.css";
 import Tweet from "../tweets/tweet";
 import { useAppSelector } from "../../state/hooks";
 import { useEffect, useState } from "react";
-import { getFeedAsync, setTweets } from "../../state/TweetSlice/TweetSlice";
+import { addPostAsync, getFeedAsync } from "../../state/TweetSlice/TweetSlice";
 import { useDispatch } from "react-redux";
-import axios from "axios";
-import RequestsRoute from "../requestsurls";
 
 function TweetsFeedPage() {
   const tweets = useAppSelector((state) => state.tweets.tweets);
@@ -14,7 +12,7 @@ function TweetsFeedPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getFeedAsync());
+    getFeed();
   }, []);
 
   const initial = username
@@ -29,26 +27,13 @@ function TweetsFeedPage() {
 
   const addPost = async () => {
     console.log("addPost");
-    const token = localStorage.getItem("token");
-    const requestData = { postText: tweetText };
     setTweetText("");
-    try {
-      const response = await axios.post(RequestsRoute.POST_URL, requestData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = response.data;
-      console.log(data);
-
-      if (data.ok && data.postId) {
-        getFeed();
-      }
-    } catch (errors) {
-      console.log(errors);
-    }
+    dispatch(addPostAsync(tweetText));
   };
+
+  // useEffect(() => {
+  //   getFeed();
+  // }, [addPost]);
 
   const getFeed = async () => {
     console.log("feed");
@@ -73,6 +58,7 @@ function TweetsFeedPage() {
                   e.preventDefault();
                   if (tweetText.trim()) {
                     onSubmit(tweetText);
+                    getFeed();
                   }
                 }}
               >

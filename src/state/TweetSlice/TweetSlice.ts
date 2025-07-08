@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import RequestsRoute from '../../components/requestsurls';
+import { useDispatch } from 'react-redux';
+
 
 interface Tweet {
     id: string;
@@ -38,6 +40,29 @@ export const getFeedAsync = createAsyncThunk(
     }
 )
 
+export const addPostAsync = createAsyncThunk(
+    'tweets/addPostAsync',
+    async (tweetText: string) => {
+    const token = localStorage.getItem("token");
+    const requestData = { postText: tweetText };
+        try {
+      const response = await axios.post(RequestsRoute.POST_URL, requestData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = response.data;
+      console.log(data);
+
+      if (data.ok && data.postId) {
+        return data;
+      }
+    } catch (errors) {
+      console.log(errors);
+    }
+  });
+
 const tweetsSlice = createSlice({
     name: "tweets",
     initialState,
@@ -48,6 +73,11 @@ const tweetsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getFeedAsync.fulfilled, (state, action) => {
             state.tweets = action.payload
+    })
+    builder.addCase(addPostAsync.fulfilled, (state, action) => {
+       const { token, postText } = action.payload
+       state.token = token
+       state.postText = postText
     })
 }})
 
