@@ -112,7 +112,9 @@ function SignUp() {
           <div className="login-form-border-line"></div>
           <div className="login-form-sigh-up-container">
             <div className="login-form-sign-up">Already have an account?</div>
-            <Link to="/signin">Sign in</Link>
+            <Link to="/signin" className="login-form-sign-up_link">
+              Sign in
+            </Link>
           </div>
         </div>
       </div>
