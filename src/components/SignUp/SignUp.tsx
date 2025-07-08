@@ -1,10 +1,8 @@
 import "./SignUp.css";
 import { useDispatch } from "react-redux";
-import { handleSignIn } from "../../state/AuthSlice/AuthSlice";
+import { signUpAsync } from "../../state/AuthSlice/AuthSlice";
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import RequestsRoute from "../requestsurls.ts";
-import axios from "axios";
 
 function SignUp() {
   const [username, setUsername] = useState("");
@@ -29,42 +27,45 @@ function SignUp() {
       setUsernameError("Login must contain 2 words");
       return;
     }
-    try {
-      const response = await axios.post(
-        RequestsRoute.SIGN_UP_URL,
-        {
-          username: username,
-          password: password,
-          email: email,
-          color: selectedColor,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+    dispatch(signUpAsync({ username, password, email, color: selectedColor }));
+    localStorage.setItem("loginData", JSON.stringify(handleData));
+    navigate("/feed");
+    // try {
+    //   const response = await axios.post(
+    //     RequestsRoute.SIGN_UP_URL,
+    //     {
+    //       username: username,
+    //       password: password,
+    //       email: email,
+    //       color: selectedColor,
+    //     },
+    //     {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   );
 
-      const data = await response.data;
-      console.log(data);
+    //   const data = await response.data;
+    //   console.log(data);
 
-      if (data.ok && data.token) {
-        localStorage.setItem("token", data.token);
-        dispatch(
-          handleSignIn({
-            email,
-            username,
-            color: selectedColor,
-            token: data.token,
-            isUserAuth: true,
-          })
-        );
-        navigate("/feed");
-        localStorage.setItem("loginData", JSON.stringify(handleData));
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    //   if (data.ok && data.token) {
+    //     localStorage.setItem("token", data.token);
+    //     dispatch(
+    //       handleSignIn({
+    //         email,
+    //         username,
+    //         color: selectedColor,
+    //         token: data.token,
+    //         isUserAuth: true,
+    //       })
+    //     );
+    //
+    //
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (

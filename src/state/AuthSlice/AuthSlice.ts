@@ -1,4 +1,6 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import RequestsRoute from "../../components/requestsurls";
+import axios from "axios";
 
 interface LoginState {
     username: string,
@@ -24,6 +26,45 @@ interface loginPayload {
     token: string
 }
 
+interface signUpRequest {
+    username: string,
+    email: string,
+    password: string,
+    color: string
+}
+
+export const signUpAsync = createAsyncThunk(
+    "auth/signUpAsync",
+    async (userData: signUpRequest, thunkAPI) => {
+        try {
+      const response = await axios.post(
+        RequestsRoute.SIGN_UP_URL,
+        userData,
+        // { username, password, email, color },
+        {headers: {"Content-Type": "application/json",},
+        }
+      );
+
+      const data = await response.data;
+      console.log(data);
+
+      if (data.ok && data.token) {
+        localStorage.setItem("token", data.token);
+        const {email, username, color, token} = data
+        return {
+            email,
+            username,
+            color,
+            token: token,
+            isUserAuth: true
+          };
+        };
+      } catch (error) {
+      console.log(error);
+    }
+})
+
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -42,6 +83,16 @@ const authSlice = createSlice({
             state.isUserAuth = false;
         }
     },
+    extraReducers: (builder) => {
+        builder.addCase(signUpAsync.fulfilled, (state, action) => {
+            const {username, email, color, token} = action.payload
+            state.username = username;
+            state.email = email;
+            state.color = color;
+            state.isUserAuth = true;
+            state.token = token
+        })
+    }
 })
 
 
