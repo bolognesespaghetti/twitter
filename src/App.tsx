@@ -25,19 +25,12 @@ function App() {
       return;
     }
     const loginData = JSON.parse(rawData);
-    if (
-      loginData &&
-      loginData.username &&
-      loginData.color &&
-      loginData.email &&
-      loginData.password
-    ) {
+    if (loginData && loginData.username && loginData.color && loginData.email) {
       const handleData = {
         username: loginData.username,
         color: loginData.color,
         isUserAuth: true,
         email: loginData.email,
-        password: loginData.password,
         token: loginData.token,
       };
       dispatch(handleSignIn(handleData));

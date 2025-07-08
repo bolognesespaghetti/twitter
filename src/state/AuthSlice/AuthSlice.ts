@@ -50,11 +50,11 @@ export const signUpAsync = createAsyncThunk(
 
       if (data.ok && data.token) {
         localStorage.setItem("token", data.token);
-        const {email, username, color, token} = data
+        const {token} = data
         return {
-            email,
-            username,
-            color,
+            email: userData.email,
+            username: userData.username,
+            color: userData.color,
             token: token,
             isUserAuth: true
           };

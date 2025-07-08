@@ -30,42 +30,6 @@ function SignUp() {
     dispatch(signUpAsync({ username, password, email, color: selectedColor }));
     localStorage.setItem("loginData", JSON.stringify(handleData));
     navigate("/feed");
-    // try {
-    //   const response = await axios.post(
-    //     RequestsRoute.SIGN_UP_URL,
-    //     {
-    //       username: username,
-    //       password: password,
-    //       email: email,
-    //       color: selectedColor,
-    //     },
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   );
-
-    //   const data = await response.data;
-    //   console.log(data);
-
-    //   if (data.ok && data.token) {
-    //     localStorage.setItem("token", data.token);
-    //     dispatch(
-    //       handleSignIn({
-    //         email,
-    //         username,
-    //         color: selectedColor,
-    //         token: data.token,
-    //         isUserAuth: true,
-    //       })
-    //     );
-    //
-    //
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
 
   return (
