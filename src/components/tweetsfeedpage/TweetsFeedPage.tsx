@@ -2,7 +2,7 @@ import "./TweetsFeedPage.css";
 import Tweet from "../tweets/tweet";
 import { useAppSelector } from "../../state/hooks";
 import { useEffect, useState } from "react";
-import { setTweets } from "../../state/TweetSlice/TweetSlice";
+import { getFeedAsync, setTweets } from "../../state/TweetSlice/TweetSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import RequestsRoute from "../requestsurls";
@@ -14,7 +14,7 @@ function TweetsFeedPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getFeed();
+    dispatch(getFeedAsync());
   }, []);
 
   const initial = username
@@ -52,19 +52,7 @@ function TweetsFeedPage() {
 
   const getFeed = async () => {
     console.log("feed");
-    try {
-      const response = await axios.post(RequestsRoute.FEED_URL);
-      const data = response.data;
-      console.log(data);
-
-      if (data.ok && data.feed) {
-        dispatch(setTweets({ tweets: data.feed }));
-      } else {
-        console.log(data.error);
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(getFeedAsync());
   };
 
   return (
