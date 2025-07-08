@@ -1,10 +1,8 @@
 import "../SignUp/SignUp.css";
 import { useDispatch } from "react-redux";
-import { handleSignIn } from "../../state/AuthSlice/AuthSlice";
+import { signInAsync } from "../../state/AuthSlice/AuthSlice";
 import { useState } from "react";
 import { useLocation, Link } from "wouter";
-import axios from "axios";
-import RequestsRoute from "../requestsurls";
 
 function SignIn() {
   const [password, setPassword] = useState("");
@@ -14,39 +12,8 @@ function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        RequestsRoute.SIGN_IN_URL,
-        {
-          password: password,
-          email: email,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      const data = response.data;
-      console.log(data);
-
-      if (data.ok && data.username && data.token && data.color) {
-        localStorage.setItem("Token", data.token);
-        dispatch(
-          handleSignIn({
-            email,
-            username: data.username,
-            color: data.color,
-            token: data.token,
-            isUserAuth: true,
-          })
-        );
-        navigate("/feed");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(signInAsync({ email, password }));
+    navigate("/feed");
   };
 
   return (

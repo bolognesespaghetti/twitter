@@ -33,6 +33,13 @@ interface signUpRequest {
     color: string
 }
 
+interface sighInReqest {
+    username: string,
+    email: string,
+    password: string,
+    color: string
+}
+
 export const signUpAsync = createAsyncThunk(
     "auth/signUpAsync",
     async (userData: signUpRequest, thunkAPI) => {
@@ -40,7 +47,6 @@ export const signUpAsync = createAsyncThunk(
       const response = await axios.post(
         RequestsRoute.SIGN_UP_URL,
         userData,
-        // { username, password, email, color },
         {headers: {"Content-Type": "application/json",},
         }
       );
@@ -64,6 +70,37 @@ export const signUpAsync = createAsyncThunk(
     }
 })
 
+export const signInAsync = createAsyncThunk(
+    "auth/sighInAsync",
+    async (userData: sighInReqest, thunkAPI) => {
+        try {
+      const response = await axios.post(
+        RequestsRoute.SIGN_IN_URL,
+        userData,
+        {headers: {"Content-Type": "application/json",},
+        }
+      );
+
+      const data = await response.data;
+      console.log(data);
+
+      if (data.ok && data.token) {
+        localStorage.setItem("token", data.token);
+        const {username, color, token} = data
+        return {
+            email: userData.email,
+            username: username,
+            color: color,
+            token: token,
+            isUserAuth: true
+          };
+        };
+      } catch (error) {
+      console.log(error);
+    }
+})
+
+
 
 const authSlice = createSlice({
     name: 'auth',
@@ -85,6 +122,14 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(signUpAsync.fulfilled, (state, action) => {
+            const {username, email, color, token} = action.payload
+            state.username = username;
+            state.email = email;
+            state.color = color;
+            state.isUserAuth = true;
+            state.token = token
+        })
+        builder.addCase(signInAsync.fulfilled, (state, action)  => {
             const {username, email, color, token} = action.payload
             state.username = username;
             state.email = email;
