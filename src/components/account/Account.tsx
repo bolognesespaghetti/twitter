@@ -22,7 +22,8 @@ function Account() {
 
   function clickLogOut() {
     dispatch(handleSignOut());
-    navigate("/login");
+    localStorage.clear();
+    navigate("/signin");
   }
 
   const handleSubmit = (e) => {

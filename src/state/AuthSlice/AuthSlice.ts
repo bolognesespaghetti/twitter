@@ -87,6 +87,12 @@ export const signInAsync = createAsyncThunk(
       if (data.ok && data.token) {
         localStorage.setItem("token", data.token);
         const {username, color, token} = data
+        const handleData = {
+            username: username,
+            color: color,
+            email: userData.email,
+        }
+        localStorage.setItem("loginData", JSON.stringify(handleData));
         return {
             email: userData.email,
             username: username,
