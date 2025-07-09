@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/tool
 import axios from 'axios';
 import RequestsRoute from '../../components/requestsurls';
 
-
 interface Tweet {
   id: string;
   author: string;
@@ -41,7 +40,7 @@ export const getFeedAsync = createAsyncThunk(
 
 export const addPostAsync = createAsyncThunk(
   'tweets/addPostAsync',
-  async (tweetText: string) => {
+  async (tweetText: string, thunkAPI) => {
     const token = localStorage.getItem("token");
     const requestData = { postText: tweetText };
     try {
@@ -55,6 +54,7 @@ export const addPostAsync = createAsyncThunk(
       console.log(data);
 
       if (data.ok && data.postId) {
+        thunkAPI.dispatch(getFeedAsync());
         return data;
       }
     } catch (errors) {
