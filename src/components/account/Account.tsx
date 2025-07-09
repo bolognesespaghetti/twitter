@@ -1,14 +1,14 @@
 import "./Account.css";
 import Tweet from "../tweets/tweet";
-import { useDispatch } from "react-redux";
+
 import { useLocation } from "wouter";
-import { handleSignIn, handleSignOut } from "../../state/AuthSlice/AuthSlice";
-import { useAppSelector } from "../../state/hooks";
+import { handleSignIn, handleSignOut, type loginPayload } from "../../state/AuthSlice/AuthSlice";
+import { useAppDispatch, useAppSelector } from "../../state/hooks";
 import { useState } from "react";
-import { Link } from "wouter";
+
 
 function Account() {
-  const { username } = useAppSelector((state) => state.auth);
+  const { username, token } = useAppSelector((state) => state.auth);
   const [stateUsername, setStateUsername] = useState(username);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +17,7 @@ function Account() {
   const tweets = useAppSelector((state) => state.tweets.tweets);
 
   const tweetsFromAccount = tweets.filter((tweet) => tweet.author == username);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [_, navigate] = useLocation();
 
   function clickLogOut() {
@@ -26,10 +26,10 @@ function Account() {
     navigate("/signin");
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     if (stateUsername.trim().split(" ").length !== 2) {
-      alert("Login must contain 2 words");
+      setUsernameError("Login must contain 2 words");
       return;
     }
     if (email.length === 0) {
@@ -41,12 +41,12 @@ function Account() {
       return;
     }
 
-    const handleData = {
+    const handleData: loginPayload = {
       username: stateUsername,
       color: selectedColor,
       isUserAuth: true,
       email: email,
-      password: password,
+      token: token,
     };
     localStorage.setItem("loginData", JSON.stringify(handleData));
     dispatch(handleSignIn(handleData));

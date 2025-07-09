@@ -1,8 +1,8 @@
 import "./SignUp.css";
-import { useDispatch } from "react-redux";
 import { signUpAsync } from "../../state/AuthSlice/AuthSlice";
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
+import { useAppDispatch } from "../../state/hooks";
 
 function SignUp() {
   const [username, setUsername] = useState("");
@@ -10,7 +10,7 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [selectedColor, setSelectedColor] = useState("Gold");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [_, navigate] = useLocation();
 
   const handleData = {
@@ -20,7 +20,7 @@ function SignUp() {
     email: email,
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setUsernameError("");
     if (username.trim().split(" ").length !== 2) {

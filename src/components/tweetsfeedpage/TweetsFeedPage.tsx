@@ -1,15 +1,14 @@
 import "./TweetsFeedPage.css";
 import Tweet from "../tweets/tweet";
-import { useAppSelector } from "../../state/hooks";
+import { useAppDispatch, useAppSelector } from "../../state/hooks";
 import { useEffect, useState } from "react";
 import { addPostAsync, getFeedAsync } from "../../state/TweetSlice/TweetSlice";
-import { useDispatch } from "react-redux";
 
 function TweetsFeedPage() {
   const tweets = useAppSelector((state) => state.tweets.tweets);
   const { username, color } = useAppSelector((state) => state.auth);
   const [tweetText, setTweetText] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     getFeed();
@@ -28,15 +27,11 @@ function TweetsFeedPage() {
   const addPost = async () => {
     console.log("addPost");
     setTweetText("");
-    dispatch(addPostAsync(tweetText));
+    await dispatch(addPostAsync(tweetText));
+    getFeed();
   };
 
-  // useEffect(() => {
-  //   getFeed();
-  // }, [addPost]);
-
   const getFeed = async () => {
-    console.log("feed");
     dispatch(getFeedAsync());
   };
 
@@ -57,8 +52,7 @@ function TweetsFeedPage() {
                 onSubmit={(e) => {
                   e.preventDefault();
                   if (tweetText.trim()) {
-                    onSubmit(tweetText);
-                    getFeed();
+                    onSubmit();
                   }
                 }}
               >

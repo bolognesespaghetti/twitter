@@ -14,11 +14,11 @@ const initialState: LoginState = {
     username: "",
     email: "",
     color: "Gold",
-    isUserAuth : false,
+    isUserAuth: false,
     token: "",
 };
 
-interface loginPayload {
+export interface loginPayload {
     username: string,
     email: string,
     color: string,
@@ -34,77 +34,77 @@ interface signUpRequest {
 }
 
 interface sighInReqest {
-    username: string,
     email: string,
     password: string,
-    color: string
 }
 
 export const signUpAsync = createAsyncThunk(
     "auth/signUpAsync",
-    async (userData: signUpRequest, thunkAPI) => {
+    async (userData: signUpRequest) => {
         try {
-      const response = await axios.post(
-        RequestsRoute.SIGN_UP_URL,
-        userData,
-        {headers: {"Content-Type": "application/json",},
+            const response = await axios.post(
+                RequestsRoute.SIGN_UP_URL,
+                userData,
+                {
+                    headers: { "Content-Type": "application/json", },
+                }
+            );
+
+            const data = await response.data;
+            console.log(data);
+
+            if (data.ok && data.token) {
+                localStorage.setItem("token", data.token);
+                const { token } = data
+                return {
+                    email: userData.email,
+                    username: userData.username,
+                    color: userData.color,
+                    token: token,
+                    isUserAuth: true
+                };
+            };
+        } catch (error) {
+            console.log(error);
         }
-      );
-
-      const data = await response.data;
-      console.log(data);
-
-      if (data.ok && data.token) {
-        localStorage.setItem("token", data.token);
-        const {token} = data
-        return {
-            email: userData.email,
-            username: userData.username,
-            color: userData.color,
-            token: token,
-            isUserAuth: true
-          };
-        };
-      } catch (error) {
-      console.log(error);
-    }
-})
+    })
 
 export const signInAsync = createAsyncThunk(
     "auth/sighInAsync",
-    async (userData: sighInReqest, thunkAPI) => {
+    async (userData: sighInReqest) => {
         try {
-      const response = await axios.post(
-        RequestsRoute.SIGN_IN_URL,
-        userData,
-        {headers: {"Content-Type": "application/json",},
-        }
-      );
+            const response = await axios.post(
+                RequestsRoute.SIGN_IN_URL,
+                userData,
+                {
+                    headers: { "Content-Type": "application/json", },
+                }
+            );
 
-      const data = await response.data;
-      console.log(data);
+            const data = await response.data;
+            console.log(data);
 
-      if (data.ok && data.token) {
-        localStorage.setItem("token", data.token);
-        const {username, color, token} = data
-        const handleData = {
-            username: username,
-            color: color,
-            email: userData.email,
+            if (data.ok && data.token) {
+                localStorage.setItem("token", data.token);
+                const { username, color, token } = data
+                const handleData = {
+                    username: username,
+                    color: color,
+                    email: userData.email,
+                }
+                localStorage.setItem("loginData", JSON.stringify(handleData));
+                return {
+                    email: userData.email,
+                    username: username,
+                    color: color,
+                    token: token,
+                    isUserAuth: true
+                };
+            };
+        } catch (error) {
+            console.log(error);
         }
-        localStorage.setItem("loginData", JSON.stringify(handleData));
-        return {
-            email: userData.email,
-            username: username,
-            color: color,
-            token: token,
-            isUserAuth: true
-          };
-        };
-      } catch (error) {
-      console.log(error);
-    }
-})
+    })
 
 
 
@@ -113,7 +113,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         handleSignIn: (state, action: PayloadAction<loginPayload>) => {
-            const { color, isUserAuth, username, email} = action.payload
+            const { color, isUserAuth, username, email } = action.payload
             state.username = username
             state.email = email
             state.color = color
@@ -128,15 +128,21 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(signUpAsync.fulfilled, (state, action) => {
-            const {username, email, color, token} = action.payload
+            if (action.payload === undefined) {
+                return;
+            }
+            const { username, email, color, token } = action.payload
             state.username = username;
             state.email = email;
             state.color = color;
             state.isUserAuth = true;
             state.token = token
         })
-        builder.addCase(signInAsync.fulfilled, (state, action)  => {
-            const {username, email, color, token} = action.payload
+        builder.addCase(signInAsync.fulfilled, (state, action) => {
+            if (action.payload === undefined) {
+                return;
+            }
+            const { username, email, color, token } = action.payload
             state.username = username;
             state.email = email;
             state.color = color;
@@ -148,6 +154,6 @@ const authSlice = createSlice({
 
 
 
-export const {handleSignIn, handleSignOut} = authSlice.actions;
+export const { handleSignIn, handleSignOut } = authSlice.actions;
 
 export default authSlice.reducer

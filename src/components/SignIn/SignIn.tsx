@@ -1,16 +1,16 @@
 import "../SignUp/SignUp.css";
-import { useDispatch, useSelector } from "react-redux";
 import { signInAsync } from "../../state/AuthSlice/AuthSlice";
 import { useState } from "react";
 import { useLocation, Link } from "wouter";
+import { useAppDispatch } from "../../state/hooks";
 
 function SignIn() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [_, navigate] = useLocation();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     dispatch(signInAsync({ email, password }));
     navigate("/feed");
