@@ -1,39 +1,33 @@
-import "./LoginForm.css";
-import { useDispatch } from "react-redux";
-import { handleSignIn } from "../../state/AuthSlice/AuthSlice";
+import "./SignUp.css";
+import { signUpAsync } from "../../state/AuthSlice/AuthSlice";
 import { useState } from "react";
-import { useLocation } from "wouter";
+import { Link, useLocation } from "wouter";
+import { useAppDispatch } from "../../state/hooks";
 
-function LoginForm() {
-  // const [loginError, setLoginError] = useState("");
-  // const login = useAppSelector((state) => state.auth.login);
-  // const color = useAppSelector((state) => state.auth.color);
-  // const isUserAuth = useAppSelector((state) => state.auth.isUserAuth);
-
+function SignUp() {
   const [username, setUsername] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [selectedColor, setSelectedColor] = useState("Gold");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [_, navigate] = useLocation();
 
-  const handleSubmit = (e) => {
+  const handleData = {
+    username: username,
+    color: selectedColor,
+    isUserAuth: true,
+    email: email,
+  };
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setUsernameError("");
     if (username.trim().split(" ").length !== 2) {
       setUsernameError("Login must contain 2 words");
       return;
     }
-
-    const handleData = {
-      username: username,
-      color: selectedColor,
-      isUserAuth: true,
-      password: password,
-      email: email,
-    };
-    dispatch(handleSignIn(handleData));
+    dispatch(signUpAsync({ username, password, email, color: selectedColor }));
     localStorage.setItem("loginData", JSON.stringify(handleData));
     navigate("/feed");
   };
@@ -42,7 +36,7 @@ function LoginForm() {
     <>
       <div className="login-form-container">
         <div className="login-form-content">
-          <div className="login-form-header">Login to Twitter </div>
+          <div className="login-form-header">Sign Up to Twitter </div>
           <form className="login-form" onSubmit={handleSubmit}>
             <input
               className="login-form__input-username"
@@ -80,10 +74,17 @@ function LoginForm() {
             </select>
             <button className="login-form__submit">Submit</button>
           </form>
+          <div className="login-form-border-line"></div>
+          <div className="login-form-sigh-up-container">
+            <div className="login-form-sign-up">Already have an account?</div>
+            <Link to="/signin" className="login-form-sign-up_link">
+              Sign in
+            </Link>
+          </div>
         </div>
       </div>
     </>
   );
 }
 
-export default LoginForm;
+export default SignUp;

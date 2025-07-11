@@ -15,12 +15,6 @@ function App() {
     setPostText(randomPostText);
   };
 
-  const moderateText = () => {
-    const originalText = inputValue;
-    const moderatedText = originalText.replace("блядь", "*****");
-    console.log(moderatedText);
-    setInputValue(moderatedText);
-  };
 
   const moderateTextAndReturn = (originalText: string) => {
     const moderatedText = originalText.replace("блядь", "*****");

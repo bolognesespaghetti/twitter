@@ -2,15 +2,16 @@ import "./App.css";
 
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Redirect, Route } from "wouter";
+import { Route } from "wouter";
 
 import Account from "./components/account/Account.tsx";
-import LoginFrom from "./components/loginform/loginForm.tsx";
 import LoginHeader from "./components/loginheader/LoginHeader";
 import TweetSingle from "./components/singletweet/SingleTweet.tsx";
 import TweetsFeedPage from "./components/tweetsfeedpage/TweetsFeedPage.tsx";
 import { handleSignIn } from "./state/AuthSlice/AuthSlice.ts";
 import { useAppSelector } from "./state/hooks.ts";
+import SignIn from "./components/SignIn/SignIn.tsx";
+import SignUp from "./components/SignUp/SignUp.tsx";
 
 function App() {
   const { isUserAuth } = useAppSelector((state) => state.auth);
@@ -24,19 +25,13 @@ function App() {
       return;
     }
     const loginData = JSON.parse(rawData);
-    if (
-      loginData &&
-      loginData.username &&
-      loginData.color &&
-      loginData.email &&
-      loginData.password
-    ) {
+    if (loginData && loginData.username && loginData.color && loginData.email) {
       const handleData = {
         username: loginData.username,
         color: loginData.color,
         isUserAuth: true,
         email: loginData.email,
-        password: loginData.password,
+        token: loginData.token,
       };
       dispatch(handleSignIn(handleData));
       setIsAppReady(true);
@@ -49,9 +44,9 @@ function App() {
   if (isUserAuth === false) {
     return (
       <>
-        <Route path="/login" component={LoginFrom} />
-        <Route>
-          <Redirect to="/login" />
+        <Route path="/signup" component={SignUp} />
+        <Route path="/signin">
+          <SignIn />
         </Route>
       </>
     );

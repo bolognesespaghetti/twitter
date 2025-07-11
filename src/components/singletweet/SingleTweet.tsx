@@ -18,15 +18,20 @@ function TweetSingle() {
         ←
       </button>
       <div className="tweet-single-page">
-        <Tweet
-          key={tweet.id}
-          id={tweet.id}
-          author={tweet.author}
-          text={tweet.text}
-          date={tweet.date}
-          likes={tweet.likes}
-          color={tweet.color}
-        />
+        {tweet !== undefined && tweet !== null &&
+          <>
+            <Tweet
+              key={tweet.id}
+              id={tweet.id}
+              author={tweet.author}
+              text={tweet.text}
+              date={tweet.date}
+              likes={tweet.likes}
+              color={tweet.color}
+            />
+          </>
+        }
+
       </div>
     </>
   );
